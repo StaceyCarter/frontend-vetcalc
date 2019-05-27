@@ -1,25 +1,8 @@
 import React from "react"
 import ReactDOM from "react-dom"
 import anime from 'animejs/lib/anime.es.js'
+import Weight from './weight'
 
-
-function Weight(props) {
-  return (
-  <div>
-    <label>
-      Weight: <input type="text" name="weight" />
-    </label>
-    <div className="btn-group btn-group-toggle" data-toggle="buttons">
-      <label className="btn btn-secondary active">
-        <input type="radio" name="kg" id="option1" autoComplete="off" /> kg
-      </label>
-      <label className="btn btn-secondary">
-        <input type="radio" name="options" id="option2" autoComplete="off" /> lbs
-      </label>
-    </div>
-  </div>
-  )
-}
 
 function LiqOrTabs(props) {
   return (
@@ -105,19 +88,42 @@ function Label(props){
   return(
     <div>
       <label> Label: <br />
-        <textarea></textarea>
+        <textarea readOnly></textarea>
       </label>
+      <p> Prop info: </p>
+      <ul>
+        <li>{props.weight}</li>
+      </ul>
+
     </div>
   )
 }
 
-
 class Form extends React.Component{
+  constructor(props){
+    super(props)
+
+    this.state = {
+      weight : "",
+    }
+
+    this.setWeight = this.setWeight.bind(this)
+  }
+
+  setWeight(weight){
+    if (typeof weight !== "number") {
+      throw new Error("I expected weight to be a number! Got " + typeof weight)
+    }
+    this.setState({
+      weight : weight
+    })
+  }
+
   render(){
     return (
     <div>
     <h1>Hello world</h1>
-    <Weight />
+    <Weight weight={this.state.weight} setWeight={this.setWeight} />
     <LiqOrTabs />
     <Route />
     <Concentration />
@@ -125,11 +131,13 @@ class Form extends React.Component{
     <DosePicker />
     <Frequency />
     <Duration />
-    <Label />
+    <Label weight={this.state.weight}/>
     </div>
     )
   }
 }
+
+
 
 ReactDOM.render(
   <Form />,
