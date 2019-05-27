@@ -80,6 +80,37 @@ function DosePicker(props){
   )
 }
 
+function Frequency(props){
+  return(
+    <div>
+      <label>
+        {/* PREFILL WITH AJAX REQUEST */}
+      How often would you like to give it? q <input type="number" name="frequency" value="" required />hrs 
+      </label>
+    </div>
+  )
+}
+
+function Duration(props){
+  return(
+    <div>
+      <label>
+      How long do you want to give it for? <input type="number" name="duration" value=""required /> days 
+      </label>
+    </div>
+  )
+}
+
+function Label(props){
+  return(
+    <div>
+      <label> Label: <br />
+        <textarea></textarea>
+      </label>
+    </div>
+  )
+}
+
 
 class Form extends React.Component{
   render(){
@@ -92,6 +123,9 @@ class Form extends React.Component{
     <Concentration />
     <Divisions />
     <DosePicker />
+    <Frequency />
+    <Duration />
+    <Label />
     </div>
     )
   }
