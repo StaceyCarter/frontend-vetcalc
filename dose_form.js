@@ -92,7 +92,8 @@ function Label(props){
       </label>
       <p> Prop info: </p>
       <ul>
-        <li>{props.weight}</li>
+        <li>Weight: {props.weight} {props.units}</li>
+        <li>Weight in kg: {props.kgWeight}kg</li>
       </ul>
 
     </div>
@@ -105,12 +106,14 @@ class Form extends React.Component{
 
     this.state = {
       weight : "",
-      units : ""
+      units : "kg",
+      weightInKgs : ""
     }
 
     this.setWeight = this.setWeight.bind(this)
     this.convertToKg = this.convertToKg.bind(this);
     this.changeUnit = this.changeUnit.bind(this)
+    this.setWeightInKgs = this.setWeightInKgs.bind(this)
   }
 
   setWeight(weight){
@@ -121,12 +124,26 @@ class Form extends React.Component{
     this.setState({
       weight : weight
     })
+    this.setWeightInKgs(weight)
   }
 
   changeUnit(newUnit) {
     this.setState({
       units: newUnit
-    }, () => console.log("new unit for main weight component: ", this.state.units)); 
+    }, () => this.setWeightInKgs(this.state.weight));
+  }
+
+  // Checks what the current weight units are. If they are lbs, then converts to kgs. 
+  setWeightInKgs(weight){
+    if (this.state.units === "lbs"){
+      this.setState({
+        weightInKgs : (weight * 0.45359237).toFixed(2)
+      }) 
+    } else {
+      this.setState({
+        weightInKgs : weight
+      })
+    }
   }
 
   convertToKg(weight){
@@ -151,7 +168,10 @@ class Form extends React.Component{
     <DosePicker />
     <Frequency />
     <Duration />
-    <Label weight={this.state.weight}/>
+    <Label 
+      weight={this.state.weight} 
+      units={this.state.units} 
+      kgWeight={this.state.weightInKgs}/>
     </div>
     )
   }
