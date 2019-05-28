@@ -3,6 +3,7 @@ import ReactDOM from "react-dom"
 import anime from 'animejs/lib/anime.es.js'
 import Weight, {KgOrLbs} from './weight'
 import LiqOrTabs from './drug_form'
+import Concentration from './drug_concentration'
 
 function Route(props) {
   return (
@@ -15,16 +16,6 @@ function Route(props) {
         <option value="SQ">SQ</option>
         <option value="IM">IM</option>
       </select>
-    </div>
-  )
-}
-
-function Concentration(props){
-  return (
-    <div>
-      <label>What is the concentration? 
-        <input type="number" name="concentration" step="0.01" />
-      </label>
     </div>
   )
 }
@@ -44,7 +35,7 @@ function DosePicker(props){
   return (
     <div>
       <label>
-        What dose do you want to use? (in mg/kg) <input type="number" name="dose" step="0.01" required />
+        What dose do you want to use? (in mg/kg) <input type="number" name="dose" step="0.01" readOnly />
       </label>
     </div> 
   )
@@ -55,7 +46,7 @@ function Frequency(props){
     <div>
       <label>
         {/* PREFILL WITH AJAX REQUEST */}
-      How often would you like to give it? q <input type="number" name="frequency" value="" required />hrs 
+      How often would you like to give it? q <input type="number" name="frequency" value="" readOnly />hrs 
       </label>
     </div>
   )
@@ -65,7 +56,7 @@ function Duration(props){
   return(
     <div>
       <label>
-      How long do you want to give it for? <input type="number" name="duration" value=""required /> days 
+      How long do you want to give it for? <input type="number" name="duration" value="" readOnly /> days 
       </label>
     </div>
   )
@@ -82,6 +73,7 @@ function Label(props){
         <li>Weight: {props.weight} {props.units}</li>
         <li>Weight in kg: {props.kgWeight}kg</li>
         <li>Drug form: {props.drugForm}</li>
+        <li>Concentration: {props.concentration}</li>
       </ul>
 
     </div>
@@ -96,13 +88,15 @@ class Form extends React.Component{
       weight : 0,
       units : "kg",
       weightInKgs : 0,
-      drugForm : "liq"
+      drugForm : "liq",
+      concentration : 0,
     }
 
     this.setWeight = this.setWeight.bind(this)
     this.changeUnit = this.changeUnit.bind(this)
     this.setWeightInKgs = this.setWeightInKgs.bind(this)
     this.setDrugForm = this.setDrugForm.bind(this)
+    this.setConcentration = this.setConcentration.bind(this)
   }
   // Responds to the form input (passed in as a prop) and updates the state accordingly.
   setWeight(weight){
@@ -139,6 +133,12 @@ class Form extends React.Component{
     })
   }
 
+  setConcentration(newConcentration){
+    this.setState({
+      concentration : newConcentration
+    })
+  }
+
   render(){
     return (
     <div>
@@ -147,7 +147,10 @@ class Form extends React.Component{
     <KgOrLbs changeUnit={this.changeUnit}/>
     <LiqOrTabs setForm={this.setDrugForm}/>
     <Route />
-    <Concentration />
+    <Concentration 
+      drugForm={this.state.drugForm}
+      setConcentration={this.setConcentration}
+      concentration={this.state.concentration} />
     <Divisions />
     <DosePicker />
     <Frequency />
@@ -156,7 +159,8 @@ class Form extends React.Component{
       weight={this.state.weight} 
       units={this.state.units} 
       kgWeight={this.state.weightInKgs}
-      drugForm = {this.state.drugForm}/>
+      drugForm = {this.state.drugForm}
+      concentration = {this.state.concentration}/>
     </div>
     )
   }
