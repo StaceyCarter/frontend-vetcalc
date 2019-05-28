@@ -10,11 +10,18 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@babel/preset-env": "7.4.5",
+    "@babel/preset-react": "7.0.0",
     "animejs": "3.0.1",
+    "babel-jest": "24.8.0",
     "lib": "4.0.2",
     "react": "16.8.6",
     "react-dom": "16.8.6",
     "react-rangeslider": "2.2.0",
+    "react-test-renderer": "16.8.6",
     "weight": "0.2.0"
+  },
+  "devDependencies": {
+    "jest": "24.8.0"
   }
 }

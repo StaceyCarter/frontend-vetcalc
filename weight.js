@@ -69,6 +69,7 @@ export default class Weight extends React.Component {
             step="0.01"
             value={this.props.weight}
             onChange={this.setWeightFromEvent}
+            required
           />
         </label>
       </div>

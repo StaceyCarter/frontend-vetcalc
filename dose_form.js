@@ -2,20 +2,7 @@ import React from "react"
 import ReactDOM from "react-dom"
 import anime from 'animejs/lib/anime.es.js'
 import Weight, {KgOrLbs} from './weight'
-
-
-function LiqOrTabs(props) {
-  return (
-    <div>
-      <label>
-        <input type="radio" name="liqTab" value="liq" /> Liquid 
-      </label> 
-      <label>
-        <input type="radio" name="liqTab" value="tab" /> Tablet 
-      </label>
-    </div>
-  )
-}
+import LiqOrTabs from './drug_form'
 
 function Route(props) {
   return (
@@ -90,10 +77,11 @@ function Label(props){
       <label> Label: <br />
         <textarea readOnly></textarea>
       </label>
-      <p> Prop info: </p>
+      <p> Form state info: </p>
       <ul>
         <li>Weight: {props.weight} {props.units}</li>
         <li>Weight in kg: {props.kgWeight}kg</li>
+        <li>Drug form: {props.drugForm}</li>
       </ul>
 
     </div>
@@ -105,21 +93,19 @@ class Form extends React.Component{
     super(props)
 
     this.state = {
-      weight : "",
+      weight : 0,
       units : "kg",
-      weightInKgs : ""
+      weightInKgs : 0,
+      drugForm : "liq"
     }
 
     this.setWeight = this.setWeight.bind(this)
-    this.convertToKg = this.convertToKg.bind(this);
     this.changeUnit = this.changeUnit.bind(this)
     this.setWeightInKgs = this.setWeightInKgs.bind(this)
+    this.setDrugForm = this.setDrugForm.bind(this)
   }
-
+  // Responds to the form input (passed in as a prop) and updates the state accordingly.
   setWeight(weight){
-    // if (typeof weight !== "number" || typeof weight !== "string") {
-    //   throw new Error("I expected weight to be a number! Got " + typeof weight)
-    // }
     console.log("Weight from setWeight: ", weight)
     this.setState({
       weight : weight
@@ -127,13 +113,14 @@ class Form extends React.Component{
     this.setWeightInKgs(weight)
   }
 
+  // Passed in as a prob to KgOrLbs which changes the unit state depending on which one the user has selected.
   changeUnit(newUnit) {
     this.setState({
       units: newUnit
     }, () => this.setWeightInKgs(this.state.weight));
   }
 
-  // Checks what the current weight units are. If they are lbs, then converts to kgs. 
+  // Checks what the current weight units are. If they are lbs, then converts the weight to kgs and updates the weight in kgs state. 
   setWeightInKgs(weight){
     if (this.state.units === "lbs"){
       this.setState({
@@ -146,13 +133,10 @@ class Form extends React.Component{
     }
   }
 
-  convertToKg(weight){
-    let weightNum = parseFloat(weight)
-    if (this.state.units === "lbs"){
-      return weightNum * 0.45359237
-    } else {
-      return weightNum
-    }
+  setDrugForm(newForm){
+    this.setState({
+      drugForm : newForm
+    })
   }
 
   render(){
@@ -161,7 +145,7 @@ class Form extends React.Component{
     <h1>Hello world</h1>
     <Weight weight={this.state.weight} setWeight={this.setWeight} />
     <KgOrLbs changeUnit={this.changeUnit}/>
-    <LiqOrTabs />
+    <LiqOrTabs setForm={this.setDrugForm}/>
     <Route />
     <Concentration />
     <Divisions />
@@ -171,7 +155,8 @@ class Form extends React.Component{
     <Label 
       weight={this.state.weight} 
       units={this.state.units} 
-      kgWeight={this.state.weightInKgs}/>
+      kgWeight={this.state.weightInKgs}
+      drugForm = {this.state.drugForm}/>
     </div>
     )
   }
