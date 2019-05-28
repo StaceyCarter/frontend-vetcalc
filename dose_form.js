@@ -5,6 +5,7 @@ import Weight, {KgOrLbs} from './weight'
 import LiqOrTabs from './drug_form'
 import Concentration from './drug_concentration'
 import Divisions from './tablet_divisions'
+import DosePicker from './dose_picker'
 
 function Route(props) {
   return (
@@ -18,18 +19,6 @@ function Route(props) {
         <option value="IM">IM</option>
       </select>
     </div>
-  )
-}
-
-
-
-function DosePicker(props){
-  return (
-    <div>
-      <label>
-        What dose do you want to use? (in mg/kg) <input type="number" name="dose" step="0.01" readOnly />
-      </label>
-    </div> 
   )
 }
 
@@ -170,8 +159,6 @@ class Form extends React.Component{
     )
   }
 }
-
-
 
 ReactDOM.render(
   <Form />,

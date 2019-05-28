@@ -2,7 +2,7 @@ import React from "react"
 
 export default function Divisions(props){
   
-  let display = (props.drugForm === "liq")? 'hidden' : '';
+  let display = (props.drugForm === "liq")? 'hide' : '';
 
   return (
     <div className={display}>
