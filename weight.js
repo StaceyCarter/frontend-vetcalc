@@ -1,6 +1,6 @@
 import React from "react";
 
-class KgOrLbs extends React.Component {
+export class KgOrLbs extends React.Component {
   constructor(props) {
     super(props);
 
@@ -49,23 +49,13 @@ export default class Weight extends React.Component {
   constructor(props) {
     super(props);
 
-    this.state = {
-      units: "kg"
-    };
-
     this.setWeightFromEvent = this.setWeightFromEvent.bind(this);
-    this.changeUnit = this.changeUnit.bind(this);
   }
-
+// Sets the state as the new weight. If the input is NaN converts it to an empty string. 
   setWeightFromEvent(e) {
-    this.props.setWeight(parseFloat(e.target.value));
-  }
-
-  changeUnit(newUnit) {
-    this.setState({
-      units: newUnit
-    }, () => console.log("new unit for main weight component: ", this.state.units));
-    
+    const value = parseFloat(e.target.value)
+    const newValue = (Number.isNaN(value))? "" : value;
+    this.props.setWeight(newValue)
   }
 
   render() {
@@ -74,13 +64,13 @@ export default class Weight extends React.Component {
         <label>
           Weight:
           <input
-            type="text"
+            type="number"
             name="weight"
+            step="0.01"
             value={this.props.weight}
             onChange={this.setWeightFromEvent}
           />
         </label>
-        <KgOrLbs changeUnit={this.changeUnit}/>
       </div>
     );
   }

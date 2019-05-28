@@ -1,7 +1,7 @@
 import React from "react"
 import ReactDOM from "react-dom"
 import anime from 'animejs/lib/anime.es.js'
-import Weight from './weight'
+import Weight, {KgOrLbs} from './weight'
 
 
 function LiqOrTabs(props) {
@@ -105,18 +105,37 @@ class Form extends React.Component{
 
     this.state = {
       weight : "",
+      units : ""
     }
 
     this.setWeight = this.setWeight.bind(this)
+    this.convertToKg = this.convertToKg.bind(this);
+    this.changeUnit = this.changeUnit.bind(this)
   }
 
   setWeight(weight){
-    if (typeof weight !== "number") {
-      throw new Error("I expected weight to be a number! Got " + typeof weight)
-    }
+    // if (typeof weight !== "number" || typeof weight !== "string") {
+    //   throw new Error("I expected weight to be a number! Got " + typeof weight)
+    // }
+    console.log("Weight from setWeight: ", weight)
     this.setState({
       weight : weight
     })
+  }
+
+  changeUnit(newUnit) {
+    this.setState({
+      units: newUnit
+    }, () => console.log("new unit for main weight component: ", this.state.units)); 
+  }
+
+  convertToKg(weight){
+    let weightNum = parseFloat(weight)
+    if (this.state.units === "lbs"){
+      return weightNum * 0.45359237
+    } else {
+      return weightNum
+    }
   }
 
   render(){
@@ -124,6 +143,7 @@ class Form extends React.Component{
     <div>
     <h1>Hello world</h1>
     <Weight weight={this.state.weight} setWeight={this.setWeight} />
+    <KgOrLbs changeUnit={this.changeUnit}/>
     <LiqOrTabs />
     <Route />
     <Concentration />
