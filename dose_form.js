@@ -4,6 +4,7 @@ import anime from 'animejs/lib/anime.es.js'
 import Weight, {KgOrLbs} from './weight'
 import LiqOrTabs from './drug_form'
 import Concentration from './drug_concentration'
+import Divisions from './tablet_divisions'
 
 function Route(props) {
   return (
@@ -20,16 +21,7 @@ function Route(props) {
   )
 }
 
-function Divisions(props){
-  return (
-    <div>
-      <label>
-        How many pieces can your tablets be divided into?
-        <input type="number" name="divide" /> pieces
-      </label>
-    </div>
-  )
-}
+
 
 function DosePicker(props){
   return (
@@ -74,6 +66,7 @@ function Label(props){
         <li>Weight in kg: {props.kgWeight}kg</li>
         <li>Drug form: {props.drugForm}</li>
         <li>Concentration: {props.concentration}</li>
+        <li>Divisions: {props.divisions}</li>
       </ul>
 
     </div>
@@ -90,6 +83,7 @@ class Form extends React.Component{
       weightInKgs : 0,
       drugForm : "liq",
       concentration : 0,
+      divisions : 1,
     }
 
     this.setWeight = this.setWeight.bind(this)
@@ -97,6 +91,7 @@ class Form extends React.Component{
     this.setWeightInKgs = this.setWeightInKgs.bind(this)
     this.setDrugForm = this.setDrugForm.bind(this)
     this.setConcentration = this.setConcentration.bind(this)
+    this.setDivisions = this.setDivisions.bind(this)
   }
   // Responds to the form input (passed in as a prop) and updates the state accordingly.
   setWeight(weight){
@@ -139,6 +134,12 @@ class Form extends React.Component{
     })
   }
 
+  setDivisions(newDivision){
+    this.setState({
+      divisions : newDivision
+    })
+  }
+
   render(){
     return (
     <div>
@@ -151,7 +152,10 @@ class Form extends React.Component{
       drugForm={this.state.drugForm}
       setConcentration={this.setConcentration}
       concentration={this.state.concentration} />
-    <Divisions />
+    <Divisions 
+      divisions={this.state.divisions}
+      setDivisions={this.setDivisions}
+      drugForm={this.state.drugForm}/>
     <DosePicker />
     <Frequency />
     <Duration />
@@ -160,7 +164,8 @@ class Form extends React.Component{
       units={this.state.units} 
       kgWeight={this.state.weightInKgs}
       drugForm = {this.state.drugForm}
-      concentration = {this.state.concentration}/>
+      concentration = {this.state.concentration}
+      divisions = {this.state.divisions}/>
     </div>
     )
   }
