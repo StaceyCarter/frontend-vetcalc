@@ -145,7 +145,7 @@ class Form extends React.Component{
       divisions={this.state.divisions}
       setDivisions={this.setDivisions}
       drugForm={this.state.drugForm}/>
-    <DosePicker />
+    <DosePicker drugForm={this.state.drugForm} divisions={this.state.divisions}/>
     <Frequency />
     <Duration />
     <Label 
