@@ -5,7 +5,7 @@ import Weight, {KgOrLbs} from './weight'
 import LiqOrTabs from './drug_form'
 import Concentration from './drug_concentration'
 import Divisions from './tablet_divisions'
-import Slider from './dose_picker'
+import MySlider from './dose_picker'
 import Amount from './calc_amount'
 
 function Route(props) {
@@ -59,6 +59,8 @@ function Label(props){
         <li>Divisions: {props.divisions}</li>
         <li>Dose: {props.dose}</li>
         <li>Amount: {props.amount}</li>
+        <li>Dose min: {props.minDose}</li>
+        <li>Dose max: {props.maxDose}</li>
       </ul>
 
     </div>
@@ -78,6 +80,8 @@ class Form extends React.Component{
       divisions : 1,
       amount : 0,
       dose : 0,
+      doseMin : 0,
+      doseMax : 0,
     }
 
     this.setWeight = this.setWeight.bind(this)
@@ -88,7 +92,8 @@ class Form extends React.Component{
     this.setDivisions = this.setDivisions.bind(this)
     this.setDose = this.setDose.bind(this)
     this.setAmount = this.setAmount.bind(this)
-
+    this.setMax = this.setMax.bind(this)
+    this.setMin = this.setMin.bind(this)
   }
   // Responds to the form input (passed in as a prop) and updates the state accordingly.
   setWeight(weight){
@@ -150,6 +155,21 @@ class Form extends React.Component{
     })
   }
 
+  // Sets the min & max dose value of the form, according to what was calculated for the range slider in dose picker.
+  setMin(newMin){
+    let newMinF = parseFloat(newMin)
+    this.setState({
+      doseMin : newMinF
+    })
+  }
+
+  setMax(newMax){
+    let newMaxF = parseFloat(newMax)
+    this.setState({
+      doseMax : newMaxF
+    })
+  }
+
   render(){
     return (
     <div>
@@ -166,8 +186,10 @@ class Form extends React.Component{
       divisions={this.state.divisions}
       setDivisions={this.setDivisions}
       drugForm={this.state.drugForm}/>
-    <Slider
-      setDose = {this.setDose}/>
+    <MySlider
+      setDose = {this.setDose} 
+      setDoseMin = {this.setMin}
+      setDoseMax = {this.setMax}/>
     <Amount 
       weight={this.state.weightInKgs}
       divisions={this.state.divisions}
@@ -175,7 +197,9 @@ class Form extends React.Component{
       changeAmount={this.setAmount} 
       amount = {this.state.amount}
       drugForm = {this.state.drugForm} 
-      dose={this.state.dose} />
+      dose={this.state.dose} 
+      doseMin={this.state.doseMin}
+      doseMax={this.state.doseMax}/>
     <Frequency />
     <Duration />
     <Label 
@@ -186,7 +210,9 @@ class Form extends React.Component{
       concentration = {this.state.concentration}
       divisions = {this.state.divisions}
       amount = {this.state.amount}
-      dose = {this.state.dose}/>
+      dose = {this.state.dose}
+      minDose = {this.state.doseMin}
+      maxDose = {this.state.doseMax}/>
     </div>
     )
   }

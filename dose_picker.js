@@ -1,5 +1,7 @@
 import React from "react";
-// import Slider from 'react-rangeslider';
+import Slider from 'react-rangeslider';
+import 'react-rangeslider/lib/index.css';
+import anime from 'animejs/lib/anime.es.js';
 
 function establishSliderValues(low, high, recommended) {
   let min;
@@ -40,11 +42,7 @@ function establishSliderValues(low, high, recommended) {
   return [min, max, defaultPos];
 }
 
-// const sliderLabelStyle = {
-
-// }
-
-export default class Slider extends React.Component {
+export default class MySlider extends React.Component {
   constructor(props) {
     super(props);
 
@@ -53,8 +51,11 @@ export default class Slider extends React.Component {
       jinja.upperDose,
       jinja.recommended
     );
-
+    
+    //Sets the form default dose to the recommended dose and the chosen min and max values for the slider.
     this.props.setDose(recommended)
+    this.props.setDoseMin(min)
+    this.props.setDoseMax(max)
 
     this.state = {
       value: recommended,
@@ -70,7 +71,14 @@ export default class Slider extends React.Component {
   handleChange(event) {
     this.setState({ value: parseFloat(event.target.value) }, 
     () => this.props.setDose(this.state.value)
-    );
+    )
+    //EXPERIMENTING WITH HAVING THIS INFO ATTACHED TO AMOUNT
+    // anime({
+    //   targets: '.box',
+    //   height: `${(parseFloat(event.target.value) - this.state.min )/(this.state.max - this.state.min) * 100 + 5}%`,
+    //   easing: 'linear',
+    //   direction: 'normal',
+    // });
   }
 
   calcMarkerPositions(){
@@ -114,7 +122,15 @@ export default class Slider extends React.Component {
             onChange={this.handleChange}
             id="slider"
             style={{ width: `${this.state.sliderWidth}px` }}
+            list="steplist"
           />
+          {/* Attempting to use tickmarks to create labels for slider */}
+          <datalist id="steplist">
+            <option value='10' label='LOW' >10</option>
+            <option>15</option>
+            <option>20</option>
+          </datalist>
+          {/* Alternative attempt to create labels for slider. */}
           <div className="slider-label" style={{ height: '50px' , width: `${this.state.sliderWidth}px` }}>
           
             <div style={{ transform : `translateX(${low}px)` , display: 'inline-block' }}> | </div>
@@ -122,14 +138,85 @@ export default class Slider extends React.Component {
             <div style={{ transform : `translateX(${high}px)` , display: 'inline-block' }}> | </div>
           
           </div>
-          
         </label>
       </div>
     );
   }
 }
 
-function SliderLabels(props){
-  
+class Box extends React.Component{
+  render() {
+    return (
+    <div className='box-container'>
+      <div className='box'></div>
+    </div>
+    )
+  }
 }
 
+class HorizontalCustomLabels extends React.Component {
+  constructor (props, context) {
+    super(props, context)
+    this.state = {
+      horizontal: 10,
+      vertical: 50
+    }
+  }
+
+  handleChangeHorizontal(value) {
+    this.setState({
+      horizontal: value
+    })
+  };
+
+  handleChangeVertical(value) {
+    this.setState({
+      vertical: value
+    })
+  }
+
+  render () {
+    const { horizontal, vertical } = this.state
+    const horizontalLabels = {
+      0: 'Low',
+      50: 'Medium',
+      100: 'High'
+    }
+
+    const verticalLabels = {
+      10: 'Getting started',
+      50: 'Half way',
+      90: 'Almost done',
+      100: 'Complete!'
+    }
+
+    const formatkg = value => value + ' kg'
+    const formatPc = p => p + '%'
+
+    return (
+      <div className='slider custom-labels'>
+        <Slider
+          min={0}
+          max={100}
+          value={horizontal}
+          labels={horizontalLabels}
+          format={formatkg}
+          handleLabel={horizontal}
+          onChange={this.handleChangeHorizontal}
+        />
+        <div className='value'>{formatkg(horizontal)}</div>
+        <hr />
+        <Slider
+          value={vertical}
+          orientation='vertical'
+          labels={verticalLabels}
+          handleLabel={vertical}
+          format={formatPc}
+
+          onChange={this.handleChangeVertical}
+        />
+        <div className='value'>{formatPc(vertical)}</div>
+      </div>
+    )
+  }
+}

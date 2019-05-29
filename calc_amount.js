@@ -1,4 +1,5 @@
 import React from "react";
+import anime from 'animejs/lib/anime.es.js';
 
 
 // Caluclates the amount of drug required for the chosen mg per kg dose. 
@@ -24,9 +25,19 @@ export default class Amount extends React.Component{
     let amount;
   
     if (form === "liq"){
+      // Calculates the current amount in mls. As well as the min and max for the current dose range slider.
       amount = Math.round(this.calcAmountMls(dose, concentration, weight)*100)/100
+      let minAmount = Math.round(this.calcAmountMls(this.props.doseMin, concentration, weight))
+      let maxAmount = Math.round(this.calcAmountMls(this.props.doseMax, concentration, weight))
       if (isNaN(amount) || amount === Infinity){
         amount = "Please enter a weight and concentration"
+      } else{
+        anime({
+          targets: '.box',
+          height: `${(amount - minAmount )/(maxAmount - minAmount) * 100 + 5}%`,
+          easing: 'linear',
+          direction: 'normal',
+        });
       }
     } else {
       amount = this.calcNumberOfTabs(dose, weight, concentration, divisions)
@@ -42,11 +53,22 @@ export default class Amount extends React.Component{
 
     return(
       <div>
+        <Box />
         <h3>{amount} {(typeof amount !== "string") ? this.props.drugForm === "liq" ? "mls" : "tablets" : ""}</h3>
       </div>
     )
   }
   
+}
+
+class Box extends React.Component{
+  render() {
+    return (
+    <div className='box-container'>
+      <div className='box'></div>
+    </div>
+    )
+  }
 }
 
 
