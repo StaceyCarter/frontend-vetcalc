@@ -5,7 +5,8 @@ import Weight, {KgOrLbs} from './weight'
 import LiqOrTabs from './drug_form'
 import Concentration from './drug_concentration'
 import Divisions from './tablet_divisions'
-import DosePicker from './dose_picker'
+import Slider from './dose_picker'
+import Amount from './calc_amount'
 
 function Route(props) {
   return (
@@ -56,6 +57,8 @@ function Label(props){
         <li>Drug form: {props.drugForm}</li>
         <li>Concentration: {props.concentration}</li>
         <li>Divisions: {props.divisions}</li>
+        <li>Dose: {props.dose}</li>
+        <li>Amount: {props.amount}</li>
       </ul>
 
     </div>
@@ -73,6 +76,8 @@ class Form extends React.Component{
       drugForm : "liq",
       concentration : 0,
       divisions : 1,
+      amount : 0,
+      dose : 0,
     }
 
     this.setWeight = this.setWeight.bind(this)
@@ -81,6 +86,9 @@ class Form extends React.Component{
     this.setDrugForm = this.setDrugForm.bind(this)
     this.setConcentration = this.setConcentration.bind(this)
     this.setDivisions = this.setDivisions.bind(this)
+    this.setDose = this.setDose.bind(this)
+    this.setAmount = this.setAmount.bind(this)
+
   }
   // Responds to the form input (passed in as a prop) and updates the state accordingly.
   setWeight(weight){
@@ -129,6 +137,19 @@ class Form extends React.Component{
     })
   }
 
+  setDose(newDose){
+    this.setState({
+      dose : newDose
+    })
+  }
+
+  setAmount(newAmount){
+    let newAmountF = parseFloat(newAmount)
+    this.setState({
+      amount : newAmountF
+    })
+  }
+
   render(){
     return (
     <div>
@@ -145,7 +166,16 @@ class Form extends React.Component{
       divisions={this.state.divisions}
       setDivisions={this.setDivisions}
       drugForm={this.state.drugForm}/>
-    <DosePicker drugForm={this.state.drugForm} divisions={this.state.divisions}/>
+    <Slider
+      setDose = {this.setDose}/>
+    <Amount 
+      weight={this.state.weightInKgs}
+      divisions={this.state.divisions}
+      concentration={this.state.concentration}
+      changeAmount={this.setAmount} 
+      amount = {this.state.amount}
+      drugForm = {this.state.drugForm} 
+      dose={this.state.dose} />
     <Frequency />
     <Duration />
     <Label 
@@ -154,7 +184,9 @@ class Form extends React.Component{
       kgWeight={this.state.weightInKgs}
       drugForm = {this.state.drugForm}
       concentration = {this.state.concentration}
-      divisions = {this.state.divisions}/>
+      divisions = {this.state.divisions}
+      amount = {this.state.amount}
+      dose = {this.state.dose}/>
     </div>
     )
   }
