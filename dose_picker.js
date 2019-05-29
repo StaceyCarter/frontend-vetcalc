@@ -1,4 +1,5 @@
 import React from "react";
+// import Slider from 'react-rangeslider';
 
 function establishSliderValues(low, high, recommended) {
   let min;
@@ -39,6 +40,10 @@ function establishSliderValues(low, high, recommended) {
   return [min, max, defaultPos];
 }
 
+// const sliderLabelStyle = {
+
+// }
+
 export default class Slider extends React.Component {
   constructor(props) {
     super(props);
@@ -55,7 +60,8 @@ export default class Slider extends React.Component {
       value: recommended,
       min: min,
       max: max,
-      recommended: recommended
+      recommended: recommended,
+      sliderWidth: 300
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -67,9 +73,34 @@ export default class Slider extends React.Component {
     );
   }
 
-  render() {
-    {
+  calcMarkerPositions(){
+    const lowDose = jinja.lowerDose
+    const highDose = jinja.upperDose
+    const recommended = jinja.recommended
+
+    let savedDoses = [lowDose, highDose, recommended]
+
+    //loop through each of the doses.
+    //check if they are undefined 
+    // if they are undefined don't render a marker
+    //if they have a value, figure out where they should sit in the div. 
+
+    let positions = []
+
+    for (let dose of savedDoses){
+      if (dose !== undefined){
+        let position = ((dose - this.state.min)/(this.state.max - this.state.min) * (this.state.sliderWidth)) - 5
+        positions.push(position)
+      }
     }
+    return positions
+  }
+
+  render() {
+    let [low, med, high] = this.calcMarkerPositions()
+
+    // Modify the lowest marker since it is too far to the left of the screen when rendered. 
+    low = low + 5
     return (
       <div>
         <label> What dose would you like to use?
@@ -82,10 +113,23 @@ export default class Slider extends React.Component {
             value={this.state.value}
             onChange={this.handleChange}
             id="slider"
+            style={{ width: `${this.state.sliderWidth}px` }}
           />
+          <div className="slider-label" style={{ height: '50px' , width: `${this.state.sliderWidth}px` }}>
+          
+            <div style={{ transform : `translateX(${low}px)` , display: 'inline-block' }}> | </div>
+            <div style={{ transform : `translateX(${med}px)` , display: 'inline-block'}}> | </div>
+            <div style={{ transform : `translateX(${high}px)` , display: 'inline-block' }}> | </div>
+          
+          </div>
+          
         </label>
       </div>
     );
   }
+}
+
+function SliderLabels(props){
+  
 }
 
