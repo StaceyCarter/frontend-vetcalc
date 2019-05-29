@@ -72,13 +72,6 @@ export default class MySlider extends React.Component {
     this.setState({ value: parseFloat(event.target.value) }, 
     () => this.props.setDose(this.state.value)
     )
-    //EXPERIMENTING WITH HAVING THIS INFO ATTACHED TO AMOUNT
-    // anime({
-    //   targets: '.box',
-    //   height: `${(parseFloat(event.target.value) - this.state.min )/(this.state.max - this.state.min) * 100 + 5}%`,
-    //   easing: 'linear',
-    //   direction: 'normal',
-    // });
   }
 
   calcMarkerPositions(){
@@ -144,15 +137,6 @@ export default class MySlider extends React.Component {
   }
 }
 
-class Box extends React.Component{
-  render() {
-    return (
-    <div className='box-container'>
-      <div className='box'></div>
-    </div>
-    )
-  }
-}
 
 class HorizontalCustomLabels extends React.Component {
   constructor (props, context) {

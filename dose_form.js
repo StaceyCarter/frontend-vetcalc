@@ -7,6 +7,7 @@ import Concentration from './drug_concentration'
 import Divisions from './tablet_divisions'
 import MySlider from './dose_picker'
 import Amount from './calc_amount'
+import Frequency from './frequency'
 
 function Route(props) {
   return (
@@ -19,17 +20,6 @@ function Route(props) {
         <option value="SQ">SQ</option>
         <option value="IM">IM</option>
       </select>
-    </div>
-  )
-}
-
-function Frequency(props){
-  return(
-    <div>
-      <label>
-        {/* PREFILL WITH AJAX REQUEST */}
-      How often would you like to give it? q <input type="number" name="frequency" value="" readOnly />hrs 
-      </label>
     </div>
   )
 }

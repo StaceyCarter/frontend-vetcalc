@@ -3,9 +3,6 @@ import ReactDOM from "react-dom"
 import anime from 'animejs/lib/anime.es.js'
 
 
-
-
-
 class Slider extends React.Component{
   constructor(props){
     super(props);
