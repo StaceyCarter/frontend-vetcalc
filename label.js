@@ -1,11 +1,12 @@
 import React from "react"
+import { calcAmount } from './calc_amount'
 
 export default class Label extends React.Component{
   constructor(props){
     super(props)
 
     this.state = {
-      text : `this is a label for a dog of ${this.props.weight}`
+      text : 'Give {this.props.amount} {this.props.drugForm === "liq" ? "mls" : "tablets"} by {this.props.route},every {this.props.frequency} hours {freqVerbose !== "" ? `(${freqVerbose})` : ""} for {this.props.duration} {this.props.timeUnit}.'
     }
   }
 
@@ -28,20 +29,19 @@ export default class Label extends React.Component{
   }
 
   render(){
-    const freqVerbose = this.calcTimesPerDay(this.props.frequency)
+    const freqVerbose = this.calcTimesPerDay(this.props.frequency);
+    const amount = calcAmount(this.props.dose, this.props.weight, this.props.concentration, this.props.drugForm, this.props.divisions, this.props.minDose, this.props.maxDose);
 
   return(
     <div>
-      <label> Label: <br />
-        <textarea value={this.state.text}>
-        </textarea>
-      </label>
       <h3>Label instructions:</h3>
-      <p>
-        Give {this.props.amount} {this.props.drugForm === "liq" ? "mls" : "tablets"} by {this.props.route},
+      <p> 
+        Give {amount} {this.props.drugForm === "liq" ? "mls" : "tablets"} by {this.props.route},
         every {this.props.frequency} hours {freqVerbose !== "" ? `(${freqVerbose})` : ""} for {this.props.duration} {this.props.timeUnit}.
       </p>
-      <p> Form state info: </p>
+      
+      <button onClick={() => alert("clicked button")}>Edit</button>
+      <h2>MAKE LABEL EDITABLE</h2>
       <ul>
         <li>Weight: {this.props.weight} {this.props.units}</li>
         <li>Weight in kg: {this.props.kgWeight}kg</li>
@@ -61,3 +61,4 @@ export default class Label extends React.Component{
     </div>
   )}
 }
+
