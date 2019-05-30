@@ -6,7 +6,7 @@ export default class Label extends React.Component{
     super(props)
 
     this.state = {
-      text : 'Give {this.props.amount} {this.props.drugForm === "liq" ? "mls" : "tablets"} by {this.props.route},every {this.props.frequency} hours {freqVerbose !== "" ? `(${freqVerbose})` : ""} for {this.props.duration} {this.props.timeUnit}.'
+      text : ''
     }
   }
 
@@ -26,6 +26,11 @@ export default class Label extends React.Component{
     } else {
       return ""
     }
+  }
+
+  handleEdit(evt){
+    
+
   }
 
   render(){

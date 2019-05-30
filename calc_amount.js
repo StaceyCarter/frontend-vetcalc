@@ -1,5 +1,9 @@
 import React from "react";
 import anime from 'animejs/lib/anime.es.js';
+import half from './half.svg'
+import quarter from './quarter.svg'
+import whole from './whole.svg'
+import threeQuarters from './threeQuarters.svg'
 
 
 // Caluclates the amount of drug required for the chosen mg per kg dose. 
@@ -79,8 +83,14 @@ export function calcAmount(dose, weight, concentration, form, divisions, doseMin
     amount = Math.round(calcAmountMls(dose, concentration, weight)*100)/100
     let minAmount = Math.round(calcAmountMls(doseMin, concentration, weight))
     let maxAmount = Math.round(calcAmountMls(doseMax, concentration, weight))
-    if (isNaN(amount) || amount === Infinity){
+    if (isNaN(amount) || amount === Infinity || weight === ""){
       amount = "Please enter a weight and concentration"
+      anime({
+        targets: '.box',
+        height: '5%',
+        easing: 'linear',
+        direction: 'normal',
+      });
     } else{
       anime({
         targets: '.box',
@@ -94,6 +104,7 @@ export function calcAmount(dose, weight, concentration, form, divisions, doseMin
     if (isNaN(amount) || amount === Infinity){
       amount = "Please enter a weight and concentration"
     }
+    <Tablets amount={amount} />
   }
   return amount
 
@@ -107,3 +118,33 @@ function calcNumberOfTabs(dose, weight, strength, divisions) {
   const numTabs = (dose * weight)/strength
   return Math.round(numTabs * divisions)/divisions
 }
+
+class Tablets extends React.Component{
+  constructor(props){
+    super(props)
+
+    this.state = {
+      tablets : 1
+    }
+  }
+
+  calcWholeImages(wholeNumer){
+
+  }
+
+  render(){
+    // Handles case when the input amount is a string (ie weight or concentration hasn't been entered) 
+    if (typeof this.props.amount === "string"){
+      return null
+    }
+    // Split based on . - first number dictates how many whole images to render, 2nd number dictates the fraction.
+
+    return(
+      <div>
+
+      </div>
+    )
+  }
+}
+
+

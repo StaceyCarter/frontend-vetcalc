@@ -74,31 +74,8 @@ export default class MySlider extends React.Component {
     )
   }
 
-  calcMarkerPositions(){
-    const lowDose = jinja.lowerDose
-    const highDose = jinja.upperDose
-    const recommended = jinja.recommended
-
-    let savedDoses = [lowDose, highDose, recommended]
-
-    //loop through each of the doses.
-    //check if they are undefined 
-    // if they are undefined don't render a marker
-    //if they have a value, figure out where they should sit in the div. 
-
-    let positions = []
-
-    for (let dose of savedDoses){
-      if (dose !== undefined){
-        let position = ((dose - this.state.min)/(this.state.max - this.state.min) * (this.state.sliderWidth)) - 5
-        positions.push(position)
-      }
-    }
-    return positions
-  }
-
   render() {
-    let [low, med, high] = this.calcMarkerPositions()
+    let [low, med, high] = calcMarkerPositions(this.state.min, this.state.max, this.state.sliderWidth)
 
     // Modify the lowest marker since it is too far to the left of the screen when rendered. 
     low = low + 5
@@ -117,12 +94,7 @@ export default class MySlider extends React.Component {
             style={{ width: `${this.state.sliderWidth}px` }}
             list="steplist"
           />
-          {/* Attempting to use tickmarks to create labels for slider */}
-          <datalist id="steplist">
-            <option value='10' label='LOW' >10</option>
-            <option>15</option>
-            <option>20</option>
-          </datalist>
+         
           {/* Alternative attempt to create labels for slider. */}
           <div className="slider-label" style={{ height: '50px' , width: `${this.state.sliderWidth}px` }}>
           
@@ -132,75 +104,94 @@ export default class MySlider extends React.Component {
           
           </div>
         </label>
+        <div style={{ height: '50px' , width: `${this.state.sliderWidth}px` }}>
+        <LabelledSlider min={this.state.min} max={this.state.max} width={this.state.sliderWidth} valueAbove={this.state.value}/>
+        </div>
       </div>
     );
   }
 }
 
 
-class HorizontalCustomLabels extends React.Component {
+class LabelledSlider extends React.Component {
   constructor (props, context) {
     super(props, context)
     this.state = {
-      horizontal: 10,
-      vertical: 50
+      horizontal: 15,
     }
+
+    this.handleChange = this.handleChange.bind(this)
+    this.getLabels = this.getLabels.bind(this)
   }
 
-  handleChangeHorizontal(value) {
+  handleChange(value) {
     this.setState({
       horizontal: value
     })
   };
 
-  handleChangeVertical(value) {
-    this.setState({
-      vertical: value
-    })
+  getLabels(){
+    const lowDose = jinja.lowerDose
+    const highDose = jinja.upperDose
+    const recommended = jinja.recommended
+
+    let labels={};
+
+    if (lowDose !== undefined){
+      labels[lowDose] = `low (${lowDose}mg/kg)`
+    }
+    if (highDose !== undefined){
+      labels[highDose] = `high (${highDose}mg/kg)`
+    }
+    if (recommended !== undefined){
+      labels[recommended] = `recommended (${recommended}mg/kg)`
+    }
+    return labels
   }
 
   render () {
-    const { horizontal, vertical } = this.state
-    const horizontalLabels = {
-      0: 'Low',
-      50: 'Medium',
-      100: 'High'
-    }
+    const { horizontal } = this.state
+    const labels = this.getLabels()
 
-    const verticalLabels = {
-      10: 'Getting started',
-      50: 'Half way',
-      90: 'Almost done',
-      100: 'Complete!'
-    }
-
-    const formatkg = value => value + ' kg'
-    const formatPc = p => p + '%'
+    const formatkg = value => value + ' mg/kg'
 
     return (
       <div className='slider custom-labels'>
         <Slider
-          min={0}
-          max={100}
+          min={this.props.min}
+          max={this.props.max}
           value={horizontal}
-          labels={horizontalLabels}
+          labels={labels}
           format={formatkg}
-          handleLabel={horizontal}
-          onChange={this.handleChangeHorizontal}
+          // handleLabel={horizontal}
+          onChange={this.handleChange}
         />
-        <div className='value'>{formatkg(horizontal)}</div>
-        <hr />
-        <Slider
-          value={vertical}
-          orientation='vertical'
-          labels={verticalLabels}
-          handleLabel={vertical}
-          format={formatPc}
-
-          onChange={this.handleChangeVertical}
-        />
-        <div className='value'>{formatPc(vertical)}</div>
+        
       </div>
     )
   }
+}
+
+
+function calcMarkerPositions(min, max, width){
+  const lowDose = jinja.lowerDose
+  const highDose = jinja.upperDose
+  const recommended = jinja.recommended
+
+  let savedDoses = [lowDose, highDose, recommended]
+
+  //loop through each of the doses.
+  //check if they are undefined 
+  // if they are undefined don't render a marker
+  //if they have a value, figure out where they should sit in the div. 
+
+  let positions = []
+
+  for (let dose of savedDoses){
+    if (dose !== undefined){
+      let position = ((dose - min)/(max - min) * (width)) - 5
+      positions.push(position)
+    }
+  }
+  return positions
 }
