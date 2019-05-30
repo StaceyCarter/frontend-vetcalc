@@ -11,6 +11,7 @@ import Frequency from './frequency'
 import Duration from './duration'
 import Label from './label'
 import Route from './route'
+import { calcAmount } from './calc_amount'
 
 class Form extends React.Component{
   constructor(props){
@@ -30,7 +31,8 @@ class Form extends React.Component{
       frequency : jinja.frequency,
       duration : jinja.duration,
       timeUnit : "days",
-      route : "mouth"
+      route : "mouth",
+      instructions : '',
     }
 
     this.setWeight = this.setWeight.bind(this)
@@ -47,13 +49,14 @@ class Form extends React.Component{
     this.setDuration = this.setDuration.bind(this)
     this.setTimeUnit = this.setTimeUnit.bind(this)
     this.setRoute = this.setRoute.bind(this)
+    this.setInstructions = this.setInstructions.bind(this)
   }
   // Responds to the form input (passed in as a prop) and updates the state accordingly.
   setWeight(weight){
     console.log("Weight from setWeight: ", weight)
     this.setState({
       weight : weight
-    })
+    }, this.generateInstructions)
     this.setWeightInKgs(weight)
   }
 
@@ -69,7 +72,7 @@ class Form extends React.Component{
     if (this.state.units === "lbs"){
       this.setState({
         weightInKgs : (weight * 0.45359237).toFixed(2)
-      }) 
+      }, this.generateInstructions) 
     } else {
       this.setState({
         weightInKgs : weight
@@ -80,44 +83,44 @@ class Form extends React.Component{
   setDrugForm(newForm){
     this.setState({
       drugForm : newForm
-    })
+    }, this.generateInstructions)
   }
 
   setConcentration(newConcentration){
     this.setState({
       concentration : newConcentration
-    })
+    }, this.generateInstructions)
   }
 
   setDivisions(newDivision){
     this.setState({
       divisions : newDivision
-    })
+    }, this.generateInstructions)
   }
 
   setDose(newDose){
     this.setState({
       dose : newDose
-    })
+    }, this.generateInstructions)
   }
 
   setAmount(newAmount){
     let newAmountF = parseFloat(newAmount)
     this.setState({
       amount : newAmountF
-    })
+    }, this.generateInstructions)
   }
 
   setFrequency(newFrequency){
     this.setState({
       frequency : newFrequency
-    })
+    }, this.generateInstructions)
   }
 
   setDuration(newDuration){
     this.setState({
       duration : newDuration
-    })
+    }, this.generateInstructions)
   }
 
   // Sets the min & max dose value of the form, according to what was calculated for the range slider in dose picker.
@@ -138,13 +141,31 @@ class Form extends React.Component{
   setTimeUnit(newUnit){
     this.setState({
       timeUnit : newUnit
-    })
+    }, this.generateInstructions)
   }
 
   setRoute(newRoute){
     this.setState({
       route : newRoute
+    }, this.generateInstructions)
+  }
+
+  setInstructions(newInstructions){
+    this.setState({
+      instructions : newInstructions.target.value
     })
+  }
+
+  generateInstructions(){
+    let amount = calcAmount(this.state.dose, this.state.weight, this.state.concentration, this.state.drugForm, this.state.divisions, this.state.minDose, this.state.maxDose);
+    console.log("AMOUNT: ", amount)
+    const freqVerbose = calcTimesPerDay(this.state.frequency);
+    const frequency = freqVerbose !== "" ? `(${freqVerbose})` : ""
+    if (typeof amount === "string"){
+      amount = 0
+    }
+    this.setState({
+      instructions : `Give ${amount} ${this.state.drugForm === "liq" ? "mls" : "tablets"} by ${this.state.route}, every ${this.props.frequency} hours ${frequency} for ${this.state.duration} ${this.state.timeUnit}` })
   }
 
   render(){
@@ -200,9 +221,29 @@ class Form extends React.Component{
       frequency = {this.state.frequency}
       duration = {this.state.duration}
       timeUnit = {this.state.timeUnit}
-      route = {this.state.route}/>
+      route = {this.state.route}
+      instructions = {this.state.instructions}
+      setInstructions = {this.setInstructions} />
     </div>
     )
+  }
+}
+
+function calcTimesPerDay(freq){
+  if (freq === 24){
+    return "once per day"
+  } else if (freq === 12){
+    return "twice a day"
+  } else if (freq === 8){
+    return "three times per day"
+  } else if (freq === 6){
+    return "four times per day"
+  } else if (freq === 48){
+    return "every other day"
+  } else if (freq === 72){
+    return "every third day"
+  } else {
+    return ""
   }
 }
 
