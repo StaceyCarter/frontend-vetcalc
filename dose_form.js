@@ -8,54 +8,9 @@ import Divisions from './tablet_divisions'
 import MySlider from './dose_picker'
 import Amount from './calc_amount'
 import Frequency from './frequency'
-
-function Route(props) {
-  return (
-    <div>
-      <select>
-        <option value="PO">PO</option>
-        <option value="OU">OU</option>
-        <option value="OD">OD</option>
-        <option value="OS">OS</option>
-        <option value="SQ">SQ</option>
-        <option value="IM">IM</option>
-      </select>
-    </div>
-  )
-}
-
-function Duration(props){
-  return(
-    <div>
-      <label>
-      How long do you want to give it for? <input type="number" name="duration" value="" readOnly /> days 
-      </label>
-    </div>
-  )
-}
-
-function Label(props){
-  return(
-    <div>
-      <label> Label: <br />
-        <textarea readOnly></textarea>
-      </label>
-      <p> Form state info: </p>
-      <ul>
-        <li>Weight: {props.weight} {props.units}</li>
-        <li>Weight in kg: {props.kgWeight}kg</li>
-        <li>Drug form: {props.drugForm}</li>
-        <li>Concentration: {props.concentration}</li>
-        <li>Divisions: {props.divisions}</li>
-        <li>Dose: {props.dose}</li>
-        <li>Amount: {props.amount}</li>
-        <li>Dose min: {props.minDose}</li>
-        <li>Dose max: {props.maxDose}</li>
-      </ul>
-
-    </div>
-  )
-}
+import Duration from './duration'
+import Label from './label'
+import Route from './route'
 
 class Form extends React.Component{
   constructor(props){
@@ -72,6 +27,10 @@ class Form extends React.Component{
       dose : 0,
       doseMin : 0,
       doseMax : 0,
+      frequency : jinja.frequency,
+      duration : jinja.duration,
+      timeUnit : "days",
+      route : "mouth"
     }
 
     this.setWeight = this.setWeight.bind(this)
@@ -84,6 +43,10 @@ class Form extends React.Component{
     this.setAmount = this.setAmount.bind(this)
     this.setMax = this.setMax.bind(this)
     this.setMin = this.setMin.bind(this)
+    this.setFrequency = this.setFrequency.bind(this)
+    this.setDuration = this.setDuration.bind(this)
+    this.setTimeUnit = this.setTimeUnit.bind(this)
+    this.setRoute = this.setRoute.bind(this)
   }
   // Responds to the form input (passed in as a prop) and updates the state accordingly.
   setWeight(weight){
@@ -145,6 +108,18 @@ class Form extends React.Component{
     })
   }
 
+  setFrequency(newFrequency){
+    this.setState({
+      frequency : newFrequency
+    })
+  }
+
+  setDuration(newDuration){
+    this.setState({
+      duration : newDuration
+    })
+  }
+
   // Sets the min & max dose value of the form, according to what was calculated for the range slider in dose picker.
   setMin(newMin){
     let newMinF = parseFloat(newMin)
@@ -160,6 +135,18 @@ class Form extends React.Component{
     })
   }
 
+  setTimeUnit(newUnit){
+    this.setState({
+      timeUnit : newUnit
+    })
+  }
+
+  setRoute(newRoute){
+    this.setState({
+      route : newRoute
+    })
+  }
+
   render(){
     return (
     <div>
@@ -167,7 +154,9 @@ class Form extends React.Component{
     <Weight weight={this.state.weight} setWeight={this.setWeight} />
     <KgOrLbs changeUnit={this.changeUnit}/>
     <LiqOrTabs setForm={this.setDrugForm}/>
-    <Route />
+    <Route 
+      setRoute = {this.setRoute}
+      route = {this.state.route}/>
     <Concentration 
       drugForm={this.state.drugForm}
       setConcentration={this.setConcentration}
@@ -190,8 +179,13 @@ class Form extends React.Component{
       dose={this.state.dose} 
       doseMin={this.state.doseMin}
       doseMax={this.state.doseMax}/>
-    <Frequency />
-    <Duration />
+    <Frequency 
+      setFrequency={this.setFrequency} />
+    <Duration 
+      setDuration={this.setDuration}
+      duration={this.state.duration}
+      timeUnit={this.state.timeUnit}
+      updateUnit={this.setTimeUnit} />
     <Label 
       weight={this.state.weight} 
       units={this.state.units} 
@@ -202,7 +196,11 @@ class Form extends React.Component{
       amount = {this.state.amount}
       dose = {this.state.dose}
       minDose = {this.state.doseMin}
-      maxDose = {this.state.doseMax}/>
+      maxDose = {this.state.doseMax}
+      frequency = {this.state.frequency}
+      duration = {this.state.duration}
+      timeUnit = {this.state.timeUnit}
+      route = {this.state.route}/>
     </div>
     )
   }
