@@ -39,6 +39,8 @@ function establishSliderValues(low, high, recommended) {
     min = recommended - 2;
     max = high;
   }
+  min = min < 0 ? 0 : min
+
   return [min, max, defaultPos];
 }
 

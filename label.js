@@ -10,37 +10,7 @@ export default class Label extends React.Component{
     }
 
     this.handleEdit = this.handleEdit.bind(this)
-    // this.calcTimesPerDay = this.calcTimesPerDay.bind(this)
-    // this.generateInstructionString = this.generateInstructionString.bind(this)
   }
-
-  // calcTimesPerDay(freq){
-  //   if (freq === 24){
-  //     return "once per day"
-  //   } else if (freq === 12){
-  //     return "twice a day"
-  //   } else if (freq === 8){
-  //     return "three times per day"
-  //   } else if (freq === 6){
-  //     return "four times per day"
-  //   } else if (freq === 48){
-  //     return "every other day"
-  //   } else if (freq === 72){
-  //     return "every third day"
-  //   } else {
-  //     return ""
-  //   }
-  // }
-
-  // generateInstructionString(amount){
-  //   const freqVerbose = this.calcTimesPerDay(this.props.frequency);
-  //   const frequency = freqVerbose !== "" ? `(${freqVerbose})` : ""
-  //   if (typeof amount === "string"){
-  //     amount = 0
-  //   }
-  //   return `Give ${amount} ${this.props.drugForm === "liq" ? "mls" : "tablets"} by ${this.props.route},
-  //       every ${this.props.frequency} hours ${frequency} for ${this.props.duration} ${this.props.timeUnit}`
-  // }
 
   // Handles event when user clicks edit.
   handleEdit(instructions, evt){
