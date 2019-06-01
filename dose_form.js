@@ -169,7 +169,7 @@ class Form extends React.Component{
   }
 
   render(){
-    
+
 
     return (
     <div>
@@ -189,7 +189,8 @@ class Form extends React.Component{
       setDivisions={this.setDivisions}
       drugForm={this.state.drugForm}/>
     <MySlider
-      setDose = {this.setDose} 
+      setDose = {this.setDose}
+      dose = {this.state.dose} 
       setDoseMin = {this.setMin}
       setDoseMax = {this.setMax}/>
     <Amount 

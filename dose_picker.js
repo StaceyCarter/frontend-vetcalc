@@ -64,16 +64,41 @@ export default class MySlider extends React.Component {
       min: min,
       max: max,
       recommended: recommended,
-      sliderWidth: 300
+      sliderWidth: 300,
+      editOn : false
     };
 
     this.handleChange = this.handleChange.bind(this);
+    this.handleEditDose = this.handleEditDose.bind(this);
+    this.renderEditBox = this.renderEditBox.bind(this);
   }
 
   handleChange(event) {
-    this.setState({ value: parseFloat(event.target.value) }, 
-    () => this.props.setDose(this.state.value)
-    )
+    if (event.target.value === ""){
+      this.setState({
+        value : 0
+      })
+    } else {
+      this.setState({ value: parseFloat(event.target.value) }, 
+      () => this.props.setDose(this.state.value)
+      )
+    }
+  }
+
+  handleEditDose(evt){
+    this.setState({
+      editOn: true
+    })
+  }
+
+  renderEditBox(){
+    if(this.state.editOn === true){
+      return (
+      <DoseChange value={this.state.value} updateValue={this.handleChange} save={() => this.setState({ editOn : false})} />
+      )
+    } else {
+      return ""
+    }
   }
 
   render() {
@@ -84,30 +109,30 @@ export default class MySlider extends React.Component {
     return (
       <div>
         <label> What dose would you like to use?
-        <h1>{this.state.value} mg/kg</h1>
+        <h1 onDoubleClick={this.handleEditDose}>{Math.round((this.props.dose) * 100) / 100} mg/kg</h1>
+        {this.renderEditBox()}
           <input
             className="slider"
             type="range"
             min={this.state.min}
             max={this.state.max}
+            step={0.01}
             value={this.state.value}
             onChange={this.handleChange}
             id="slider"
             style={{ width: `${this.state.sliderWidth}px` }}
             list="steplist"
           />
-         
-          {/* Alternative attempt to create labels for slider. */}
-          <div className="slider-label" style={{ height: '50px' , width: `${this.state.sliderWidth}px` }}>
-          
-            <div style={{ transform : `translateX(${low}px)` , display: 'inline-block' }}> | </div>
-            <div style={{ transform : `translateX(${med}px)` , display: 'inline-block'}}> | </div>
-            <div style={{ transform : `translateX(${high}px)` , display: 'inline-block' }}> | </div>
-          
-          </div>
         </label>
         <div style={{ height: '50px' , width: `${this.state.sliderWidth}px` }}>
-        <LabelledSlider min={this.state.min} max={this.state.max} width={this.state.sliderWidth} valueAbove={this.state.value}/>
+        <LabelledSlider 
+          className="slider"
+          min={this.state.min} 
+          max={this.state.max} 
+          width={this.state.sliderWidth} 
+          value={this.props.dose}
+          step={0.01} 
+          drag={this.props.setDose}/>
         </div>
       </div>
     );
@@ -129,7 +154,8 @@ class LabelledSlider extends React.Component {
   handleChange(value) {
     this.setState({
       horizontal: value
-    })
+    }, () => this.props.drag(value))
+    
   };
 
   getLabels(){
@@ -162,10 +188,11 @@ class LabelledSlider extends React.Component {
         <Slider
           min={this.props.min}
           max={this.props.max}
-          value={horizontal}
+          value={this.props.value}
           labels={labels}
           format={formatkg}
           // handleLabel={horizontal}
+          step={0.01}
           onChange={this.handleChange}
         />
         
@@ -191,4 +218,14 @@ function calcMarkerPositions(min, max, width){
     }
   }
   return positions
+}
+
+function DoseChange(props){
+
+  return(
+    <div>
+      <input type="number" value={props.value === 0 ? "" : props.value} onChange={props.updateValue} step="0.01"/>
+      <button onClick={props.save}>Save</button>
+    </div>
+  )
 }

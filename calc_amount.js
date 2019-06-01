@@ -129,13 +129,13 @@ function WholeTabImage(props){
   let list = []
 
   for (let i =0 ; i < props.number; i++){
-    list.push(whole)
+    list.push(i)
   }
 
   return(
     <div className="amount-container">
-    {list.map(image => {
-      return <img src={whole} className="tablet-amount"></img>
+    {list.map(i => {
+      return <img src={whole} className="tablet-amount" key={i}></img>
     })}
     </div>
   )

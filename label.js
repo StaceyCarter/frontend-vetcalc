@@ -28,8 +28,6 @@ export default class Label extends React.Component{
   }
 
   render(){
-    // const amount = calcAmount(this.props.dose, this.props.weight, this.props.concentration, this.props.drugForm, this.props.divisions, this.props.minDose, this.props.maxDose);
-    // const instructions = this.generateInstructionString(amount)
 
   return(
     <div>
@@ -64,8 +62,6 @@ export default class Label extends React.Component{
 
 // Renders the edit box and calls set instructions when the user types them in.  
 function Instructions(props){
-  console.log("instructions called")
-
   return(
     <div>
     <textarea onChange={props.setInstructions} value={props.instructions}>  </textarea>
