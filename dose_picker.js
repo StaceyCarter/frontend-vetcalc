@@ -174,18 +174,13 @@ class LabelledSlider extends React.Component {
   }
 }
 
-
+// Checks for each of low, high and recommended input doses and returns a list of the positions.
 function calcMarkerPositions(min, max, width){
   const lowDose = jinja.lowerDose
   const highDose = jinja.upperDose
   const recommended = jinja.recommended
 
   let savedDoses = [lowDose, highDose, recommended]
-
-  //loop through each of the doses.
-  //check if they are undefined 
-  // if they are undefined don't render a marker
-  //if they have a value, figure out where they should sit in the div. 
 
   let positions = []
 
