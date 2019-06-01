@@ -33,6 +33,7 @@ class Form extends React.Component{
       timeUnit : "days",
       route : "mouth",
       instructions : '',
+      totalAmount : 0,
     }
 
     this.setWeight = this.setWeight.bind(this)
@@ -161,11 +162,14 @@ class Form extends React.Component{
     console.log("AMOUNT: ", amount)
     const freqVerbose = calcTimesPerDay(this.state.frequency);
     const frequency = freqVerbose !== "" ? `(${freqVerbose})` : ""
+
+    const total = getTotalAmount(amount, this.state.frequency, this.state.timeUnit, this.state.duration, this.state.drugForm)
+
     if (typeof amount === "string"){
       amount = 0
     }
     this.setState({
-      instructions : `Give ${amount} ${this.state.drugForm === "liq" ? "mls" : "tablets"} by ${this.state.route}, every ${this.props.frequency} hours ${frequency} for ${this.state.duration} ${this.state.timeUnit}` })
+      instructions : `Give ${amount} ${this.state.drugForm === "liq" ? "mls" : "tablets"} by ${this.state.route}, every ${this.props.frequency} hours ${frequency} for ${this.state.duration} ${this.state.timeUnit}. Total: ${total}` })
   }
 
   render(){
@@ -248,6 +252,24 @@ function calcTimesPerDay(freq){
   } else {
     return ""
   }
+}
+
+function getTotalAmount(amount, frequency, timeUnit, duration, drugForm){
+  const totalPerDay = amount * (24/frequency)
+  let totalAllUp;
+  if (timeUnit === "weeks"){
+    totalAllUp = totalPerDay * 7 * duration
+  } else if (timeUnit === "months"){
+    totalAllUp = totalPerDay * 30 * duration
+  } else {
+    totalAllUp = totalPerDay * duration
+  }
+
+  if (isNaN(totalAllUp) || totalAllUp === Infinity){
+    totalAllUp = 0
+  } 
+
+  return `${totalAllUp} ${drugForm === "liq" ? "mls" : "tablets"}` 
 }
 
 ReactDOM.render(

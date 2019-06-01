@@ -111,19 +111,7 @@ export default class MySlider extends React.Component {
         <label> What dose would you like to use?
         <h1 onDoubleClick={this.handleEditDose}>{Math.round((this.props.dose) * 100) / 100} mg/kg</h1>
         {this.renderEditBox()}
-          <input
-            className="slider"
-            type="range"
-            min={this.state.min}
-            max={this.state.max}
-            step={0.01}
-            value={this.state.value}
-            onChange={this.handleChange}
-            id="slider"
-            style={{ width: `${this.state.sliderWidth}px` }}
-            list="steplist"
-          />
-        </label>
+       
         <div style={{ height: '50px' , width: `${this.state.sliderWidth}px` }}>
         <LabelledSlider 
           className="slider"
@@ -134,6 +122,7 @@ export default class MySlider extends React.Component {
           step={0.01} 
           drag={this.props.setDose}/>
         </div>
+        </label>
       </div>
     );
   }
