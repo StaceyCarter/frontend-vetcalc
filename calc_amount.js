@@ -17,10 +17,13 @@ export default class Amount extends React.Component{
 
     return(
       <div>
-        <Box />
-        <div className="tablet-amount-container">
+        {this.props.drugForm === "liq" ? 
+          <Box /> : 
+          <div className="tablet-amount-container">
           <Tablets amount={amount}/>
-        </div>
+          </div>}
+        
+        
         <h3>{amount} {(typeof amount !== "string") ? this.props.drugForm === "liq" ? "mls" : "tablets" : ""}</h3>
       </div>
     )
@@ -129,12 +132,10 @@ function WholeTabImage(props){
     list.push(whole)
   }
 
-  console.log("list from whole images: ", list)
-
   return(
-    <div>
+    <div className="amount-container">
     {list.map(image => {
-      return <img src={whole}></img>
+      return <img src={whole} className="tablet-amount"></img>
     })}
     </div>
   )
@@ -152,7 +153,7 @@ function FractionImage(props){
   } else {
     return ""
   }
-  return (<img src={image}></img>)
+  return (<img src={image} className="tablet-amount"></img>)
 }
 
 
