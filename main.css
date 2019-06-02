@@ -2,12 +2,28 @@
   height: 5%;
   width : 100%;
   background-color: blue;
+  position : absolute;
+  bottom : 0;
 }
 
 .box-container {
-  transform: rotate(180deg); 
-  height: 100px;
-  width: 40px; 
+  position: absolute;
+  bottom: 0; 
+  height: 250px;
+  width: 250px;
+  z-index: -1;
+  -webkit-clip-path: polygon(60% 14%, 71% 24%, 82% 33%, 76% 45%, 63% 58%, 42% 75%, 30% 66%, 23% 56%, 42% 35%);
+  clip-path: polygon(60% 14%, 71% 24%, 82% 33%, 76% 45%, 63% 58%, 42% 75%, 30% 66%, 23% 56%, 42% 35%); 
+}
+
+.syringe {
+  display: block;
+  height: 250px;
+  width: 250px;
+}
+
+.syringe-fill-container {
+   position: relative;
 }
 
 .hide {

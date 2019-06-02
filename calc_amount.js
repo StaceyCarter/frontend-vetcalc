@@ -4,6 +4,7 @@ import half from './half.svg'
 import quarter from './quarter.svg'
 import whole from './whole.svg'
 import threeQuarters from './threeQuarters.svg'
+import syringe from './syringe-hand-drawn-tool.svg'
 
 
 // Caluclates the amount of drug required for the chosen mg per kg dose. 
@@ -33,8 +34,11 @@ export default class Amount extends React.Component{
 class Box extends React.Component{
   render() {
     return (
-    <div className='box-container'>
-      <div className='box'></div>
+    <div className="syringe-fill-container">
+    <img src={syringe} className="syringe"></img>
+      <div className='box-container'> 
+        <div className='box syringe-fill'></div>
+      </div>
     </div>
     )
   }
