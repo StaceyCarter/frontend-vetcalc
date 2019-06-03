@@ -6,13 +6,6 @@
   bottom : 0;
 }
 
-.rangeslider {
-  margin: 20px 0;
-  position: relative;
-  background: red;
-  -ms-touch-action: none;
-  touch-action: none;
-}
 
 .box-container {
   position: absolute;
