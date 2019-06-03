@@ -41,8 +41,14 @@ export default class Divisions extends React.Component{
   return (
     <div className={display}>
       <label>
-        How many pieces can your tablets be divided into?
-        <input type="number" value={this.props.divisions} onChange={(evt) => this.props.setDivisions(evt.target.value)} /> pieces
+        How can the tablet be divided?
+        {/* Could be used in the future if we have more animations - not just for 0.25, 0.5 and 0.75 */}
+        {/* <input type="number" value={this.props.divisions} onChange={(evt) => this.props.setDivisions(evt.target.value)} /> pieces */}
+        <select value={this.props.divisions} onChange={(evt) => this.props.setDivisions(evt.target.value)}>
+          <option value={1}>Whole only</option>
+          <option value={2}>Halved</option>
+          <option value={4}>Quartered</option>
+      </select>
         <div className="tablet-image-container">
         <img src={image}></img>
         </div>

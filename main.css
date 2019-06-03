@@ -1,7 +1,7 @@
 .box {
   height: 5%;
   width : 100%;
-  background-color: blue;
+  background-color: rgb(252, 100, 45, 0.7);
   position : absolute;
   bottom : 0;
 }

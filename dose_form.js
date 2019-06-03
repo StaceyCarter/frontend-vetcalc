@@ -177,7 +177,6 @@ class Form extends React.Component{
 
     return (
     <div>
-    <h1>Hello world</h1>
     <Weight weight={this.state.weight} setWeight={this.setWeight} />
     <KgOrLbs changeUnit={this.changeUnit}/>
     <LiqOrTabs setForm={this.setDrugForm}/>

@@ -100,7 +100,7 @@ export default class Label extends React.Component{
       <button onClick={this.closeModal}>Cancel</button>
       </Popup>
 
-      <h2>MAKE LABEL EDITABLE</h2>
+{/*     For monitoring state during development:  
       <ul>
         <li>Weight: {this.props.weight} {this.props.units}</li>
         <li>Weight in kg: {this.props.kgWeight}kg</li>
@@ -116,7 +116,7 @@ export default class Label extends React.Component{
         <li>Time unit: {this.props.timeUnit}</li>
         <li>Route: {this.props.route}</li>
         <li>Instructions: {this.props.instructions}</li>
-      </ul>
+      </ul> */}
 
     </div>
   )}
