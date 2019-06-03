@@ -5,6 +5,33 @@ import quarter from './quarter.svg'
 import whole from './whole.svg'
 import threeQuarters from './threeQuarters.svg'
 import syringe from './syringe-hand-drawn-tool.svg'
+import { throttle, debounce } from 'lodash'
+import { DH_UNABLE_TO_CHECK_GENERATOR } from "constants";
+
+
+
+const animateSyringeStartAux = () => {
+  anime({
+    targets: '.box',
+    height: '10%',
+    easing: 'linear',
+    direction: 'normal',
+  })
+}
+
+const animateSyringeStart = debounce(animateSyringeStartAux, 100)
+
+function animateSyringeFillAux(amount, minAmount, maxAmount){
+  console.log("aux runing")
+  anime({
+    targets: '.box',
+    height: `${(amount - minAmount )/(maxAmount - minAmount) * 100 + 5}%`,
+    easing: 'linear',
+    direction: 'normal',
+  })
+}
+
+const animateSyringeFill = debounce(animateSyringeFillAux, 100)
 
 
 // Caluclates the amount of drug required for the chosen mg per kg dose. 
@@ -55,19 +82,9 @@ export function calcAmount(dose, weight, concentration, form, divisions, doseMin
     let maxAmount = Math.round(calcAmountMls(doseMax, concentration, weight))
     if (isNaN(amount) || amount === Infinity || weight === ""){
       amount = "Please enter a weight and concentration"
-      anime({
-        targets: '.box',
-        height: '5%',
-        easing: 'linear',
-        direction: 'normal',
-      });
+      animateSyringeStart();
     } else{
-      anime({
-        targets: '.box',
-        height: `${(amount - minAmount )/(maxAmount - minAmount) * 100 + 5}%`,
-        easing: 'linear',
-        direction: 'normal',
-      });
+      animateSyringeFill(amount, minAmount, maxAmount);
     }
   } else {
     amount = calcNumberOfTabs(dose, weight, concentration, divisions)
@@ -159,6 +176,4 @@ function FractionImage(props){
   }
   return (<img src={image} className="tablet-amount"></img>)
 }
-
-
 

@@ -170,7 +170,7 @@ class LabelledSlider extends React.Component {
     const { horizontal } = this.state
     const labels = this.getLabels()
 
-    const formatkg = value => value + ' mg/kg'
+    const formatMgKg = value => Math.round(value * 100)/100 + ' mg/kg'
 
     return (
       <div className='slider custom-labels'>
@@ -179,7 +179,7 @@ class LabelledSlider extends React.Component {
           max={this.props.max}
           value={this.props.value}
           labels={labels}
-          format={formatkg}
+          format={formatMgKg}
           // handleLabel={horizontal}
           step={0.01}
           onChange={this.handleChange}

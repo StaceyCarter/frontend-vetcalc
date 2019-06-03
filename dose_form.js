@@ -169,7 +169,7 @@ class Form extends React.Component{
       amount = 0
     }
     this.setState({
-      instructions : `Give ${amount} ${this.state.drugForm === "liq" ? "mls" : "tablets"} by ${this.state.route}, every ${this.props.frequency} hours ${frequency} for ${this.state.duration} ${this.state.timeUnit}. Total: ${total}` })
+      instructions : `Give ${amount} ${this.state.drugForm === "liq" ? "mls" : "tablets"} by ${this.state.route}, every ${this.state.frequency} hours ${frequency} for ${this.state.duration} ${this.state.timeUnit}. Total: ${total}` })
   }
 
   render(){
@@ -269,7 +269,7 @@ function getTotalAmount(amount, frequency, timeUnit, duration, drugForm){
     totalAllUp = 0
   } 
 
-  return `${totalAllUp} ${drugForm === "liq" ? "mls" : "tablets"}` 
+  return `${Math.round(totalAllUp * 100) / 100} ${drugForm === "liq" ? "mls" : "tablets"}` 
 }
 
 ReactDOM.render(
