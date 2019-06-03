@@ -1,16 +1,35 @@
 import React from "react"
-import { calcAmount } from './calc_amount'
+import Popup from 'reactjs-popup'
 
 export default class Label extends React.Component{
   constructor(props){
     super(props)
 
     this.state = {
-      editOn: false  
+      editOn: false,
+      popupOpen : false,
+      instructions : '',
+      phone : '',
+      sent : false
     }
 
     this.handleEdit = this.handleEdit.bind(this)
     this.handleText = this.handleText.bind(this)
+    this.closeModal = this.closeModal.bind(this)
+    this.sendText = this.sendText.bind(this)
+    this.setPhone = this.setPhone.bind(this)
+  }
+
+  setPhone(evt){
+    this.setState({
+      phone : evt.target.value
+    })
+  }
+
+  closeModal(){
+    this.setState({
+      popupOpen : false
+    })
   }
 
   // Handles event when user clicks edit.
@@ -21,7 +40,21 @@ export default class Label extends React.Component{
   }
 
   handleText(instructions, evt){
-    alert("texting:" + instructions)
+    this.setState({
+      popupOpen : true,
+      instructions : instructions
+    })
+  }
+
+  sendText(){
+    fetch('/text-client', {
+      method : 'POST',
+      body : JSON.stringify({
+        instructions : this.state.instructions,
+        phone : this.state.phone
+        })
+      })
+      .then(this.setState({ sent : true }, this.closeModal))
   }
 
   renderEditBox(instructions) {
@@ -45,7 +78,22 @@ export default class Label extends React.Component{
       </div>
       {/* <button onClick={this.handleEdit.bind(this, instructions)}>Edit</button> */}
       { this.renderEditBox(this.props.instructions) }
-      <div className="edit"></div>
+      <Popup 
+        open={this.state.popupOpen}
+        closeOnDocumentClick
+        onClose={this.closeModal}
+      >
+
+      <h3>Enter the client's phone number:</h3>
+      <input 
+        type='tel' 
+        placeholder='Enter number with no gaps'
+        value={this.state.phone}
+        onChange={this.setPhone}></input>
+      <button onClick={this.sendText}>Send</button>
+      <button onClick={this.closeModal}>Cancel</button>
+      </Popup>
+
       <h2>MAKE LABEL EDITABLE</h2>
       <ul>
         <li>Weight: {this.props.weight} {this.props.units}</li>
@@ -77,3 +125,4 @@ function Instructions(props){
     </div>
   )
 }
+
