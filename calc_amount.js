@@ -25,7 +25,7 @@ function animateSyringeFillAux(amount, minAmount, maxAmount){
   
   anime({
     targets: '.box',
-    height: `${(amount - minAmount )/(maxAmount - minAmount) * 100 + 5}%`, //ADJUST TO REFLECT FILLING
+    height: `${(amount - minAmount )/(maxAmount - minAmount) * 42 + 23}%`, //ADJUST TO REFLECT FILLING
     easing: 'linear',
     direction: 'normal',
   })
