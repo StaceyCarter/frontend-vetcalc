@@ -47,7 +47,7 @@ export default class Label extends React.Component{
   }
 
   sendText(){
-    fetch('/text-client', {
+    fetch('/text-client.json', {
       method : 'POST',
       body : JSON.stringify({
         instructions : this.state.instructions,
