@@ -10,6 +10,7 @@ export default class Label extends React.Component{
     }
 
     this.handleEdit = this.handleEdit.bind(this)
+    this.handleText = this.handleText.bind(this)
   }
 
   // Handles event when user clicks edit.
@@ -19,16 +20,23 @@ export default class Label extends React.Component{
     })
   }
 
+  handleText(instructions, evt){
+    alert("texting:" + instructions)
+  }
+
   renderEditBox(instructions) {
     if (this.state.editOn === true){
       return <Instructions setInstructions={this.props.setInstructions} save={() => this.setState({ editOn : false})} instructions={this.props.instructions} />
     } else {
-      return <button onClick={this.handleEdit.bind(this, instructions)}>Edit</button>
+      return (
+      <div>
+        <button onClick={this.handleEdit.bind(this, instructions)}>Edit</button>
+        <button onClick={this.handleText.bind(this, instructions)}>Text to client</button>
+      </div>)
     }  
   }
 
   render(){
-
   return(
     <div>
       <h3>Label instructions:</h3>

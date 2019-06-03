@@ -5,15 +5,15 @@ import quarter from './quarter.svg'
 import whole from './whole.svg'
 import threeQuarters from './threeQuarters.svg'
 import syringe from './syringe-hand-drawn-tool.svg'
-import { throttle, debounce } from 'lodash'
-import { DH_UNABLE_TO_CHECK_GENERATOR } from "constants";
+import { debounce } from 'lodash'
+
 
 
 
 const animateSyringeStartAux = () => {
   anime({
     targets: '.box',
-    height: '10%',
+    height: '23%',
     easing: 'linear',
     direction: 'normal',
   })
@@ -22,10 +22,10 @@ const animateSyringeStartAux = () => {
 const animateSyringeStart = debounce(animateSyringeStartAux, 100)
 
 function animateSyringeFillAux(amount, minAmount, maxAmount){
-  console.log("aux runing")
+  
   anime({
     targets: '.box',
-    height: `${(amount - minAmount )/(maxAmount - minAmount) * 100 + 5}%`,
+    height: `${(amount - minAmount )/(maxAmount - minAmount) * 100 + 5}%`, //ADJUST TO REFLECT FILLING
     easing: 'linear',
     direction: 'normal',
   })

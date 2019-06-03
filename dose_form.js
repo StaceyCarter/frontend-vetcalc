@@ -169,7 +169,7 @@ class Form extends React.Component{
       amount = 0
     }
     this.setState({
-      instructions : `Give ${amount} ${this.state.drugForm === "liq" ? "mls" : "tablets"} by ${this.state.route}, every ${this.state.frequency} hours ${frequency} for ${this.state.duration} ${this.state.timeUnit}. Total: ${total}` })
+      instructions : `${jinja.drug}: Give ${amount} ${this.state.drugForm === "liq" ? "mls" : "tablets"} by ${this.state.route}, every ${this.state.frequency} hours ${frequency} for ${this.state.duration} ${this.state.timeUnit}. Total: ${total}` })
   }
 
   render(){
