@@ -111,6 +111,15 @@
   padding : 1%;
 }
 
+.popup-content {
+  height: 50%;
+}
+
+.popup-input {
+  display: block;
+  margin: 4% 0%;
+}
+
 
 
 /* #kg.active, #lbs.active {

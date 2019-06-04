@@ -90,14 +90,22 @@ export default class Label extends React.Component{
         onClose={this.closeModal}
       >
 
-      <h3>Enter the client's phone number:</h3>
-      <input 
-        type='tel' 
-        placeholder='Enter number with no gaps'
-        value={this.state.phone}
-        onChange={this.setPhone}></input>
-      <button className="btn btn-primary" onClick={this.sendText}>Send</button>
-      <button className="btn btn-primary" onClick={this.closeModal}>Cancel</button>
+      <div className="popup-input">
+        <label for="phonenumber">Enter the client's phone number:</label>
+        <div className="form-group">
+          <div className="container">
+            <input 
+              type='tel'
+              id="phonenumber"
+              className="form-control" 
+              placeholder='Enter number with no gaps'
+              value={this.state.phone}
+              onChange={this.setPhone}></input>
+            <button className="btn btn-primary float-right text-edit-buttons" onClick={this.sendText}>Send</button>
+            <button className="btn btn-primary float-right text-edit-buttons" onClick={this.closeModal}>Cancel</button>
+          </div>
+        </div>
+      </div>
       </Popup>
 
 {/* //     For monitoring state during development:  
