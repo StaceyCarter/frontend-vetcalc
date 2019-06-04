@@ -103,14 +103,15 @@ export default class MySlider extends React.Component {
     return (
       <div>
         <label> What dose would you like to use? </label>
-        <div class="offset-3 col-4">
+        <div>
           <div className={"dose-mgkg " + (this.state.editOn === true? "hide" : "")} onClick={this.handleEditDose}>
             <span>{(Math.round((this.props.dose) * 100) / 100) + "mg/kg"}</span>
           </div>
           {this.renderEditBox()}
         </div>
-        <div class="offset-2">
-          <div style={{ height: '50px' , width: `${this.state.sliderWidth}px` }}>
+        <div>
+          <div style={{ height: '50px' , width: `${this.state.sliderWidth}px`, display: 'block', margin: 'auto' }}>
+          <span>
           <LabelledSlider 
             className="slider"
             min={this.state.min} 
@@ -119,6 +120,7 @@ export default class MySlider extends React.Component {
             value={this.props.dose}
             step={0.01} 
             drag={this.props.setDose}/>
+            </span>
           </div>
         </div>
       </div>

@@ -11,12 +11,17 @@ export default function Duration(props){
   return(
     <div className="form-inline">
       <div className="form-group">
-        <label for="duration">
-        How long do you want to give it for? 
-        </label>
-        <input className="form-control" type="number" id="duration" value={props.duration} onChange={handleChange} />
-        <TimeUnit updateUnit={props.updateUnit}/>
-        
+        <div className="container">
+          <div className="row">
+            <label for="duration">
+            How long do you want to give it for? 
+            </label>
+          </div>
+          <div className="row">
+            <input className="form-control" type="number" id="duration" value={props.duration} onChange={handleChange} />
+            <TimeUnit updateUnit={props.updateUnit}/>
+          </div>
+        </div>
       </div>
     </div>
   )
