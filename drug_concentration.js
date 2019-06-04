@@ -14,16 +14,22 @@ export default function Concentration(props){
 
   return (
     <div className="form-group">
-      <label for="concentration">What is the {describingWord} ?</label>
-        <input 
-          className="form-control" 
-          id="concentration" 
-          type="number" 
-          step="0.01" 
-          placeholder="Concentration"
-          onChange={(evt) => {
-           props.setConcentration(evt.target.value)}} />
-        {units}
+      <div className="container">
+        <div className="row">
+          <label for="concentration">What is the {describingWord} ?</label>
+        </div>
+        <div className="row">
+          <input 
+            className="form-control col-10" 
+            id="concentration" 
+            type="number" 
+            step="0.01" 
+            placeholder="Concentration"
+            onChange={(evt) => {
+            props.setConcentration(evt.target.value)}} />
+          <span className="concentration-unit">{units}</span>
+        </div>
+      </div>
     </div>
   )
 }

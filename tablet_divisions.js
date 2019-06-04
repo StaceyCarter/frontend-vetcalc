@@ -41,7 +41,9 @@ export default class Divisions extends React.Component{
   return (
     <div className={display}>
     <div className="form-inline">
-    <div className="form-group">
+    
+    <div className="container">
+      <div className="row">
       <label>
         How can the tablet be divided?
         </label>
@@ -52,9 +54,13 @@ export default class Divisions extends React.Component{
           <option value={2}>Halved</option>
           <option value={4}>Quartered</option>
       </select>
+      </div>
+      <div className="row">
         <div className="tablet-image-container">
         <img src={image}></img>
         </div>
+      </div>
+        
         </div>
       </div>
     </div>
