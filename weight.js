@@ -60,18 +60,21 @@ export default class Weight extends React.Component {
 
   render() {
     return (
-      <div>
-        <label>
+      <div className="form-group">
+        <label for="weight">
           Weight:
+        </label>
           <input
             type="number"
-            name="weight"
+            id="weight"
+            className="form-control"
             step="0.01"
             value={this.props.weight}
             onChange={this.setWeightFromEvent}
-            required
+            
           />
-        </label>
+        
+   
       </div>
     );
   }

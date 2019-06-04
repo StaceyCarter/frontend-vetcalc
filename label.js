@@ -69,8 +69,8 @@ export default class Label extends React.Component{
     } else {
       return (
       <div>
-        <button onClick={this.handleEdit.bind(this, instructions)}>Edit</button>
-        <button onClick={this.handleText.bind(this, instructions)}>Text to client</button>
+        <button className="btn btn-primary float-right text-edit-buttons" onClick={this.handleEdit.bind(this, instructions)}>Edit</button>
+        <button className="btn btn-primary float-right text-edit-buttons" onClick={this.handleText.bind(this, instructions)}>Text to client</button>
       </div>)
     }  
   }
@@ -78,8 +78,8 @@ export default class Label extends React.Component{
   render(){
   return(
     <div>
-      <h3>Label instructions:</h3>
-      <div>
+      <div class="label-instructions-header">Label instructions:</div>
+      <div className="label">
       <p onDoubleClick={this.handleEdit}> {this.props.instructions} </p>
       </div>
       {/* <button onClick={this.handleEdit.bind(this, instructions)}>Edit</button> */}
@@ -96,8 +96,8 @@ export default class Label extends React.Component{
         placeholder='Enter number with no gaps'
         value={this.state.phone}
         onChange={this.setPhone}></input>
-      <button onClick={this.sendText}>Send</button>
-      <button onClick={this.closeModal}>Cancel</button>
+      <button className="btn btn-primary" onClick={this.sendText}>Send</button>
+      <button className="btn btn-primary" onClick={this.closeModal}>Cancel</button>
       </Popup>
 
 {/*     For monitoring state during development:  
@@ -125,9 +125,9 @@ export default class Label extends React.Component{
 // Renders the edit box and calls set instructions when the user types them in.  
 function Instructions(props){
   return(
-    <div>
-    <textarea onChange={props.setInstructions} value={props.instructions}>  </textarea>
-    <button onClick={props.save}>Save </button>
+    <div className="form-group">
+    <textarea class="form-control" onChange={props.setInstructions} value={props.instructions}>  </textarea>
+    <button className="btn btn-primary float-right text-edit-buttons" onClick={props.save}>Save </button>
     </div>
   )
 }

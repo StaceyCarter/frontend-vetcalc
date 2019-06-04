@@ -21,6 +21,15 @@ export default class LiqOrTabs extends React.Component {
 
   render () {
   return (
+    <div>
+      <div className="drugform-icons">
+      <div className="liquid">
+        <i class="fas fa-flask"></i> 
+      </div>
+      <div className="tablet">
+        <i class="fas fa-pills"></i>
+      </div>
+      </div>
       <div>
         <label>
           <input 
@@ -38,6 +47,7 @@ export default class LiqOrTabs extends React.Component {
             onChange={this.changeForm}
             /> Tablet 
         </label>
+      </div>
       </div>
     )
   }

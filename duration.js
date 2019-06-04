@@ -9,11 +9,15 @@ export default function Duration(props){
   }
 
   return(
-    <div>
-      <label>
-      How long do you want to give it for? <input type="number" name="duration" value={props.duration} onChange={handleChange} />
-      <TimeUnit updateUnit={props.updateUnit}/>
-      </label>
+    <div className="form-inline">
+      <div className="form-group">
+        <label for="duration">
+        How long do you want to give it for? 
+        </label>
+        <input className="form-control" type="number" id="duration" value={props.duration} onChange={handleChange} />
+        <TimeUnit updateUnit={props.updateUnit}/>
+        
+      </div>
     </div>
   )
 }
@@ -36,10 +40,12 @@ class TimeUnit extends React.Component{
 
   render() {
     return(
-      <select value={this.state.timeUnit} onChange={this.handleChange}>
+      
+      <select className="form-control" value={this.state.timeUnit} onChange={this.handleChange}>
         <option value={"days"}>days</option>
         <option value={"weeks"}>weeks</option>
         <option value={"months"}>months</option>
       </select>
+      
   )}
 }

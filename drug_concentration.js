@@ -13,12 +13,11 @@ export default function Concentration(props){
   }
 
   return (
-    <div>
-      <label>What is the {describingWord}?
-        <input type="number" step="0.01" onChange={(evt) => {
+    <div className="form-group">
+      <label for="concentration">What is the {describingWord} ?</label>
+        <input className="form-control" id="concentration" type="number" step="0.01" onChange={(evt) => {
            props.setConcentration(evt.target.value)}} />
         {units}
-      </label>
     </div>
   )
 }

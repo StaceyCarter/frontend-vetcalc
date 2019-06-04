@@ -51,5 +51,42 @@
   display : inline;
 }
 
+.label {
+  padding: 5%;
+  margin: 5% 15%;
+  border-radius: 10px;
+  box-shadow: 5px 5px 5px grey;
+  border: 1px solid grey;
+}
+
+.text-edit-buttons {
+  margin: 5px;
+}
+
+#amount-text{
+  font-size: 1.5rem;
+  text-align: center;
+  font-weight: bold;
+}
+
+.drugform-icons {
+  font-size : 5rem;
+}
+
+.liquid, .tablet {
+  display: inline-block
+}
+
+.label-instructions-header{
+  font-size : 2rem;
+}
+
+
+
+
+
+
+
+
 
 

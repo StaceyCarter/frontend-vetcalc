@@ -52,7 +52,9 @@ export default class Amount extends React.Component{
           </div>}
         
         
-        <h3>{amount} {(typeof amount !== "string") ? this.props.drugForm === "liq" ? "mls" : "tablets" : ""}</h3>
+        <div id="amount-text">
+          {amount} {(typeof amount !== "string") ? this.props.drugForm === "liq" ? "mls" : "tablets" : ""}
+        </div> 
       </div>
     )
   }

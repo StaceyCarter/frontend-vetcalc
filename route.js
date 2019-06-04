@@ -3,7 +3,7 @@ import React from "react"
 export default function Route(props) {
 
   return (
-    <div>
+    <div className="dropdown-menu">
       <select value={props.route} onChange={(evt) => props.setRoute(evt.target.value)}>
         <option value="mouth">PO</option>
         <option value="subcutaneous (under the skin) injection">SQ</option>

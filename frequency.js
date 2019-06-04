@@ -21,10 +21,12 @@ export default class Frequency extends React.Component{
   
   render() {
     return(
-    <div>
-      <label>
+    <div className="form-inline">
+    <div className="form-group">
+      <label for="frequency-drop">
       How often would you like to give it?
-      <select value={this.state.freq} onChange={this.handleChange}>
+      </label>
+      <select className="form-control" value={this.state.freq} onChange={this.handleChange} id="frequency-drop">
         <option value={24}>SID</option>
         <option value={12}>BID</option>
         <option value={8}>TID</option>
@@ -32,8 +34,13 @@ export default class Frequency extends React.Component{
         <option value={48}>EOD</option>
         <option value={this.state.freq}>Custom</option>
       </select>
-      q <input type="number" name="frequency" value={this.state.freq} onChange={this.handleChange}/>hrs 
+      <label for="frequency-hours">
+       q
+      <input className="form-control" type="number" id="frequency-hours" value={this.state.freq} onChange={this.handleChange}/>
+      
+        hrs 
       </label>
+      </div>
     </div>
   )}
 }
