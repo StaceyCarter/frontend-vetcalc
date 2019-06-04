@@ -9,7 +9,7 @@ export default function Duration(props){
   }
 
   return(
-    <div className="form-inline">
+    <div className="form-inline duration-block">
       <div className="form-group">
         <div className="container">
           <div className="row">

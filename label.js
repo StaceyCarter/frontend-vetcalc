@@ -69,8 +69,8 @@ export default class Label extends React.Component{
     } else {
       return (
       <div>
-        <button className="btn btn-primary float-right text-edit-buttons" onClick={this.handleEdit.bind(this, instructions)}>Edit</button>
-        <button className="btn btn-primary float-right text-edit-buttons" onClick={this.handleText.bind(this, instructions)}>Text to client</button>
+        <button className="btn btn-primary float-right text-edit-buttons" onClick={this.handleEdit.bind(this, instructions)}><i class="fas fa-edit"></i> Edit</button>
+        <button className="btn btn-primary float-right text-edit-buttons" onClick={this.handleText.bind(this, instructions)}><i class="fas fa-mobile-alt"></i> Text to client</button>
       </div>)
     }  
   }
@@ -98,10 +98,10 @@ export default class Label extends React.Component{
               type='tel'
               id="phonenumber"
               className="form-control" 
-              placeholder='Enter number with no gaps'
+              placeholder='eg 9999999999'
               value={this.state.phone}
               onChange={this.setPhone}></input>
-            <button className="btn btn-primary float-right text-edit-buttons" onClick={this.sendText}>Send</button>
+            <button className="btn btn-primary float-right text-edit-buttons" onClick={this.sendText}><i class="fas fa-paper-plane"></i> Send</button>
             <button className="btn btn-primary float-right text-edit-buttons" onClick={this.closeModal}>Cancel</button>
           </div>
         </div>
@@ -137,7 +137,7 @@ function Instructions(props){
     <div className="label">
     <textarea class="form-control" onChange={props.setInstructions} value={props.instructions}>  </textarea>
     </div>
-    <button className="btn btn-primary float-right text-edit-buttons" onClick={props.save}>Save </button>
+    <button className="btn btn-primary float-right text-edit-buttons" onClick={props.save}><i class="fas fa-save"></i> Save </button>
     </div>
   )
 }

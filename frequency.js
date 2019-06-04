@@ -38,12 +38,12 @@ export default class Frequency extends React.Component{
           <option value={48}>EOD</option>
           <option value={this.state.freq}>Custom</option>
         </select>
-        <label for="frequency-hours">
-        q
-        <input className="form-control" type="number" id="frequency-hours" value={this.state.freq} onChange={this.handleChange}/>
+        <span className="q-freq-hrs">
+        <span className="q-freq">q</span>
+        <input className="form-control" type="number" id="frequency-hours" value={this.state.freq} onChange={this.handleChange}/> 
+        <span className="q-freq">hrs </span>
+        </span>
         
-          hrs 
-        </label>
       </div>
       </div>
       </div>
