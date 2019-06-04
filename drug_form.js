@@ -1,54 +1,50 @@
 import React from "react";
-import { thisExpression } from "@babel/types";
+
 
 export default class LiqOrTabs extends React.Component {
-  constructor(props){
+  constructor(props) {
     super(props);
 
     this.state = {
-      drugForm : "liq"
-    }
+      drugForm: "liq"
+    };
 
-    this.changeForm = this.changeForm.bind(this)
+    this.changeForm = this.changeForm.bind(this);
   }
 
   changeForm(evt) {
-    this.setState({
-      drugForm : evt.target.value
-    },
-    () => this.props.setForm(this.state.drugForm))
+    this.setState(
+      {
+        drugForm: evt.target.value
+      },
+      () => this.props.setForm(this.state.drugForm)
+    );
   }
 
-  render () {
-  return (
-    <div>
-      <div className="drugform-icons">
-      <div className="liquid">
-        <i class="fas fa-flask"></i> 
+  handleClick(form){
+    this.setState(
+      {
+        drugForm: form
+      },
+      () => this.props.setForm(this.state.drugForm)
+    );
+  }
+
+  render() {
+    return (
+      <div className="container">
+        <div className="row">
+          <div className={"liquid col-md-2 offset-md-4 " + (this.state.drugForm === "liq"? "active" : "inactive") }>
+            <i className="fas fa-flask drugform-icon" onClick={() => this.handleClick("liq")}/>
+            <label id="liquid-label">Liquid</label>
+          </div>
+          <div className={"tablet col-md-2 " + (this.state.drugForm === "tab"? "active" : "inactive")}>
+            <i className="fas fa-pills drugform-icon" onClick={() => this.handleClick("tab")}/>
+            <label id="tab-label">Tablets</label>
+          </div>
+        </div>
+        
       </div>
-      <div className="tablet">
-        <i class="fas fa-pills"></i>
-      </div>
-      </div>
-      <div>
-        <label>
-          <input 
-            type="radio" 
-            value="liq" 
-            checked={this.state.drugForm === "liq"}
-            onChange={this.changeForm} 
-            /> Liquid 
-        </label> 
-        <label>
-          <input 
-            type="radio" 
-            value="tab"
-            checked={this.state.drugForm === "tab"}
-            onChange={this.changeForm}
-            /> Tablet 
-        </label>
-      </div>
-      </div>
-    )
+    );
   }
 }

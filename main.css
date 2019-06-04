@@ -69,17 +69,31 @@
   font-weight: bold;
 }
 
-.drugform-icons {
+.drugform-icon {
   font-size : 5rem;
 }
 
 .liquid, .tablet {
-  display: inline-block
+  display: inline-block;
+  text-align: center;
+}
+
+.liquid:hover, .tablet:hover {
+  cursor: pointer;
 }
 
 .label-instructions-header{
   font-size : 2rem;
 }
+
+.active{
+  color : rgb(0, 166, 153, 0.7);
+}
+
+.inactive{
+  color: #767676;
+}
+
 
 
 
