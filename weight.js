@@ -18,36 +18,27 @@ export class KgOrLbs extends React.Component {
     () => this.props.changeUnit(this.state.selectedOption));
   }
 
+  handleChange(selected){
+    console.log(selected)
+    this.setState({
+      selectedOption: selected
+    },
+    this.props.changeUnit(selected));
+  }
+
   render() {
     return (
-      <div className="weight-selector">
-      <div className="form-check form-check-inline">
-        <label className="form-check-label" for="kg">
-        kg
-        </label>
-          <input
-            type="radio"
-            className="form-check-input"
-            id="kg"
-            value="kg"
-            checked={this.state.selectedOption==="kg"}
-            onChange={this.handleOptionChange}
-          />
-        </div>
-        <div className="form-check form-check-inline">
-        <label className="form-check-label" for="lbs">
-        lbs
-        </label>
-          <input
-            type="radio"
-            value="lbs"
-            id="lbs"
-            className="form-check-input"
-            checked={this.state.selectedOption==="lbs"}
-            onChange={this.handleOptionChange}
-          />
-          
-      </div>
+      <div>
+        <button 
+          onClick={() => this.handleChange("kg")} 
+          id="kg"
+          class={"btn btn-outline-secondary kg-lb-button " + (this.state.selectedOption === "kg"? "active" : "" )} 
+          type="button">kg</button>
+        <button 
+          onClick={() => this.handleChange("lbs")} 
+          id="lbs"
+          class={"btn btn-outline-secondary kg-lb-button " + (this.state.selectedOption === "lbs"? "active" : "")} 
+          type="button">lbs</button>
       </div>
     );
   }
@@ -71,19 +62,21 @@ export default class Weight extends React.Component {
     return (
       <div className="form-group">
         <label for="weight">
-          Weight:
+          What is the patient's weight?
         </label>
-          <input
-            type="number"
-            id="weight"
-            className="form-control"
+        <div class="input-group">
+          <input 
+            type="number" 
+            class="form-control" 
+            placeholder="Patient's weight"
             step="0.01"
             value={this.props.weight}
-            onChange={this.setWeightFromEvent}
-            
-          />
+            onChange={this.setWeightFromEvent}  />
+          <div class="input-group-append" id="button-addon4">
+            <KgOrLbs changeUnit={this.props.changeUnit}/>
+        </div>
         
-   
+      </div>
       </div>
     );
   }

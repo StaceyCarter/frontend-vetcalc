@@ -51,7 +51,6 @@ export default class Amount extends React.Component{
           <Tablets amount={amount}/>
           </div>}
         
-        
         <div id="amount-text">
           {amount} {(typeof amount !== "string") ? this.props.drugForm === "liq" ? "mls" : "tablets" : ""}
         </div> 
@@ -63,7 +62,7 @@ export default class Amount extends React.Component{
 class Box extends React.Component{
   render() {
     return (
-    <div className="syringe-fill-container">
+    <div className="syringe-fill-container col-4 offset-4">
     <img src={syringe} className="syringe"></img>
       <div className='box-container'> 
         <div className='box syringe-fill'></div>
@@ -139,7 +138,7 @@ class Tablets extends React.Component{
     }
     // Split based on . - first number dictates how many whole images to render, 2nd number dictates the fraction.
     return(
-      <div>
+      <div class="offset-2">
         {this.renderImages()}
       </div>
     )

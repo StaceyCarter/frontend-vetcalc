@@ -100,22 +100,22 @@ export default class Label extends React.Component{
       <button className="btn btn-primary" onClick={this.closeModal}>Cancel</button>
       </Popup>
 
-{/*     For monitoring state during development:  
-      <ul>
+{/* //     For monitoring state during development:  
+       <ul>
         <li>Weight: {this.props.weight} {this.props.units}</li>
         <li>Weight in kg: {this.props.kgWeight}kg</li>
-        <li>Drug form: {this.props.drugForm}</li>
-        <li>Concentration: {this.props.concentration}</li>
-        <li>Divisions: {this.props.divisions}</li>
-        <li>Dose: {this.props.dose}</li>
-        <li>Amount: {this.props.amount}</li>
-        <li>Dose min: {this.props.minDose}</li>
-        <li>Dose max: {this.props.maxDose}</li>
-        <li>Frequency: {this.props.frequency}</li>
-        <li>Duration: {this.props.duration}</li>
-        <li>Time unit: {this.props.timeUnit}</li>
-        <li>Route: {this.props.route}</li>
-        <li>Instructions: {this.props.instructions}</li>
+//         <li>Drug form: {this.props.drugForm}</li>
+//         <li>Concentration: {this.props.concentration}</li>
+//         <li>Divisions: {this.props.divisions}</li>
+//         <li>Dose: {this.props.dose}</li>
+//         <li>Amount: {this.props.amount}</li>
+//         <li>Dose min: {this.props.minDose}</li>
+//         <li>Dose max: {this.props.maxDose}</li>
+//         <li>Frequency: {this.props.frequency}</li>
+//         <li>Duration: {this.props.duration}</li>
+//         <li>Time unit: {this.props.timeUnit}</li>
+//         <li>Route: {this.props.route}</li>
+//         <li>Instructions: {this.props.instructions}</li>
       </ul> */}
 
     </div>

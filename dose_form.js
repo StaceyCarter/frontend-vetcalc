@@ -18,7 +18,7 @@ class Form extends React.Component{
     super(props)
 
     this.state = {
-      weight : 0,
+      weight : "",
       units : "kg",
       weightInKgs : 0,
       drugForm : "liq",
@@ -177,8 +177,7 @@ class Form extends React.Component{
 
     return (
     <div>
-    <Weight weight={this.state.weight} setWeight={this.setWeight} />
-    <KgOrLbs changeUnit={this.changeUnit}/>
+    <Weight weight={this.state.weight} setWeight={this.setWeight} changeUnit={this.changeUnit}/>
     <LiqOrTabs setForm={this.setDrugForm}/>
     <Route 
       setRoute = {this.setRoute}
