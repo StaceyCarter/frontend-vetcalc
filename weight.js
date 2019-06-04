@@ -21,24 +21,33 @@ export class KgOrLbs extends React.Component {
   render() {
     return (
       <div className="weight-selector">
-        <label>
+      <div className="form-check form-check-inline">
+        <label className="form-check-label" for="kg">
+        kg
+        </label>
           <input
             type="radio"
+            className="form-check-input"
+            id="kg"
             value="kg"
             checked={this.state.selectedOption==="kg"}
             onChange={this.handleOptionChange}
           />
-          kg
+        </div>
+        <div className="form-check form-check-inline">
+        <label className="form-check-label" for="lbs">
+        lbs
         </label>
-        <label>
           <input
             type="radio"
             value="lbs"
+            id="lbs"
+            className="form-check-input"
             checked={this.state.selectedOption==="lbs"}
             onChange={this.handleOptionChange}
           />
-          lbs
-        </label>
+          
+      </div>
       </div>
     );
   }
