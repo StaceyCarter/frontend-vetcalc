@@ -79,8 +79,8 @@ export default class Label extends React.Component{
   return(
     <div>
       <div class="label-instructions-header">Label instructions:</div>
-      <div className="label">
-      <p onDoubleClick={this.handleEdit}> {this.props.instructions} </p>
+      <div className={"label " + (this.state.editOn === true ? "hide" : "")}>
+        <p onDoubleClick={this.handleEdit}> {this.props.instructions} </p>
       </div>
       {/* <button onClick={this.handleEdit.bind(this, instructions)}>Edit</button> */}
       { this.renderEditBox(this.props.instructions) }
@@ -126,7 +126,9 @@ export default class Label extends React.Component{
 function Instructions(props){
   return(
     <div className="form-group">
+    <div className="label">
     <textarea class="form-control" onChange={props.setInstructions} value={props.instructions}>  </textarea>
+    </div>
     <button className="btn btn-primary float-right text-edit-buttons" onClick={props.save}>Save </button>
     </div>
   )
