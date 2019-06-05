@@ -16,7 +16,9 @@ export default function Concentration(props){
     <div className="form-group">
       <div className="container">
         <div className="row">
-          <label for="concentration">What is the {describingWord} ?</label>
+          <div className="col-12" style={{ padding : 0 }}>
+            <label for="concentration">What is the {describingWord} ?</label>
+          </div>
         </div>
         <div className="row">
           <input 
