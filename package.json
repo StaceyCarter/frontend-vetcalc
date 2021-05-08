@@ -15,7 +15,7 @@
     "animejs": "3.0.1",
     "babel-jest": "24.8.0",
     "lib": "4.0.2",
-    "lodash": "4.17.11",
+    "lodash": "4.17.21",
     "react": "16.8.6",
     "react-dom": "16.8.6",
     "react-rangeslider": "2.2.0",
